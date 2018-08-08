@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AA4345F8-2FC8-4B74-84F7-986E8B83B752}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xarial.AppLaunchKit</RootNamespace>
+    <AssemblyName>Xarial.Signal2Go</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ApplicationInfoAttribute.cs" />
+    <Compile Include="Base\AppInfo.cs" />
+    <Compile Include="Base\IService.cs" />
+    <Compile Include="Base\IServiceDialog.cs" />
+    <Compile Include="Base\Services\IAboutApplicationService.cs" />
+    <Compile Include="Base\Services\IEulaService.cs" />
+    <Compile Include="Base\Services\ILogService.cs" />
+    <Compile Include="Base\Services\IOpenIdConnectorService.cs" />
+    <Compile Include="Base\Services\IUpdatesService.cs" />
+    <Compile Include="Base\Services\IUserSettingsService.cs" />
+    <Compile Include="Common\BaseService.cs" />
+    <Compile Include="Common\WinFormServiceDialog.cs" />
+    <Compile Include="Components\ServiceBindingAttribute.cs" />
+    <Compile Include="Components\ServiceLocator.cs" />
+    <Compile Include="Components\WindowWrapper.cs" />
+    <Compile Include="Exceptions\AmbiguousServiceException.cs" />
+    <Compile Include="Exceptions\DuplicateServiceException.cs" />
+    <Compile Include="Exceptions\InvalidServiceException.cs" />
+    <Compile Include="Exceptions\OverdefinedServiceRegisteredException.cs" />
+    <Compile Include="Exceptions\ServiceLocatorException.cs" />
+    <Compile Include="Exceptions\ServiceNotBoundException.cs" />
+    <Compile Include="Exceptions\ServiceNotRegisteredException.cs" />
+    <Compile Include="Exceptions\ServiceNotSupportedException.cs" />
+    <Compile Include="Exceptions\ServicesNotAttachedException.cs" />
+    <Compile Include="Helpers\JsonSerializer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reflection\AssemblyExtension.cs" />
+    <Compile Include="Reflection\ResourceHelper.cs" />
+    <Compile Include="Reflection\TypeExtension.cs" />
+    <Compile Include="ServicesManager.cs" />
+    <Compile Include="Services\About\AboutApplicationService.cs" />
+    <Compile Include="Services\About\UI\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\About\UI\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Attributes\AboutAttribute.cs" />
+    <Compile Include="Services\Attributes\EulaAttribute.cs" />
+    <Compile Include="Services\Attributes\LogAttribute.cs" />
+    <Compile Include="Services\Attributes\UpdatesUrlAttribute.cs" />
+    <Compile Include="Services\Eula\EulaAgreementData.cs" />
+    <Compile Include="Services\Eula\EulaService.cs" />
+    <Compile Include="Services\Eula\Exceptions\EulaContentException.cs" />
+    <Compile Include="Services\Eula\Exceptions\EulaNotAgreedException.cs" />
+    <Compile Include="Services\Eula\UI\EulaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\Eula\UI\EulaForm.Designer.cs">
+      <DependentUpon>EulaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Log\Exceptions\LogException.cs" />
+    <Compile Include="Services\Log\SystemEventLogService.cs" />
+    <Compile Include="Services\Updates\Exceptions\CheckForUpdatesDataException.cs" />
+    <Compile Include="Services\Updates\Exceptions\UpdatesCheckException.cs" />
+    <Compile Include="Services\Updates\LatestVersionInfo.cs" />
+    <Compile Include="Services\Updates\UI\UpgradeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Services\Updates\UI\UpgradeForm.Designer.cs">
+      <DependentUpon>UpgradeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Updates\UpdatesService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Services\About\UI\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\Eula\UI\EulaForm.resx">
+      <DependentUpon>EulaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\Updates\UI\UpgradeForm.resx">
+      <DependentUpon>UpgradeForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
