@@ -1,0 +1,6 @@
+Icons by Oxugen: http://www.iconarchive.com/icons/oxygen-icons.org/oxygen/authors.txt [License: GNU Lesser General Public License]
+==============
+Another sampe 3rd party licenses:
+3rd party license 1: url to license
+3rd party license 2: url to license
+3rd party license 2: url to license
