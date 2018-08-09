@@ -7,19 +7,10 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using IdentityModel.OidcClient;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base;
 using Xarial.AppLaunchKit.Base.Services;
 using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Helpers;
 using Xarial.AppLaunchKit.Services.Attributes;
 using Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions;
 using Xarial.AppLaunchKit.Services.Auth.Oidc.UI;
@@ -30,9 +21,7 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
     {
         public event LoggedInDelegate LoggedIn;
         public event LoginFailedDelegate LoginFailed;
-
-        private Type m_AppType;
-
+        
         private string m_Authority;
         private string m_ClientId;
         private string m_ClientSecret;
@@ -122,10 +111,8 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
             }
         }
 
-        protected override void Init(Type appType, string workDir, AuthOidcAttribute bindingAtt)
+        protected override void Init(Assembly assm, string workDir, AuthOidcAttribute bindingAtt)
         {
-            m_AppType = appType;
-
             m_Authority = bindingAtt.Authority;
             m_ClientId = bindingAtt.ClientId;
             m_ClientSecret = bindingAtt.ClientSecret;

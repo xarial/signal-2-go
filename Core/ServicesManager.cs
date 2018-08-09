@@ -6,10 +6,8 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using Xarial.AppLaunchKit.Attributes;
 using Xarial.AppLaunchKit.Properties;
 using Xarial.AppLaunchKit.Base;
@@ -19,6 +17,7 @@ using Xarial.AppLaunchKit.Services.Updates;
 using System.Threading.Tasks;
 using System.Threading;
 using Xarial.AppLaunchKit.Services.Log;
+using System.Reflection;
 
 namespace Xarial.AppLaunchKit
 {
@@ -36,24 +35,24 @@ namespace Xarial.AppLaunchKit
         private readonly ServiceLocator m_ServiceLocator;
 
         public TService GetService<TService>()
-            where TService:IService
+            where TService : IService
         {
             return m_ServiceLocator.GetService<TService>();
         }
 
-        public ServicesManager(Type appType, IntPtr parentWnd)
-            : this(appType, parentWnd,
+        public ServicesManager(Assembly assm, IntPtr parentWnd)
+            : this(assm, parentWnd,
                   typeof(EulaService),
                   typeof(UpdatesService),
                   typeof(SystemEventLogService))
         {
         }
 
-        public ServicesManager(Type appType, IntPtr parentWnd, params Type[] servicesTypes)
+        public ServicesManager(Assembly assm, IntPtr parentWnd, params Type[] servicesTypes)
         {
-            if (appType == null)
+            if (assm == null)
             {
-                throw new ArgumentNullException(nameof(appType));
+                throw new ArgumentNullException(nameof(assm));
             }
 
             ApplicationInfoAttribute appInfoAtt;
@@ -62,7 +61,7 @@ namespace Xarial.AppLaunchKit
             string appTitle = "";
             Icon appIcon = null;
 
-            if (appType.TryGetAttribute(out appInfoAtt))
+            if (assm.TryGetAttribute(out appInfoAtt))
             {
                 appWordDir = appInfoAtt.WorkingDirectory;
                 appTitle = appInfoAtt.Title;
@@ -76,7 +75,7 @@ namespace Xarial.AppLaunchKit
                     Settings.Default.DefaultAppDir);
             }
 
-            m_AppInfo = new AppInfo(appType,
+            m_AppInfo = new AppInfo(assm,
                 new WindowWrapper(parentWnd), appTitle, appIcon, appWordDir);
 
             m_ServiceLocator = new ServiceLocator(m_AppInfo, servicesTypes);

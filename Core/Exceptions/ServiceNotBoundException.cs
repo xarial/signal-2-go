@@ -6,9 +6,6 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Xarial.AppLaunchKit.Exceptions
 {

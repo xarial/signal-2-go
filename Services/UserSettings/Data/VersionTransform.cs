@@ -7,10 +7,6 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Xarial.AppLaunchKit.Services.UserSettings.Data
 {

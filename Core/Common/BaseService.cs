@@ -6,6 +6,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using System;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Xarial.AppLaunchKit.Base;
@@ -26,7 +27,7 @@ namespace Xarial.AppLaunchKit.Common
         public void Init(AppInfo appInfo, TSrvBindingAtt bindingAtt)
         {
             m_AppInfo = appInfo;
-            Init(m_AppInfo.ApplicationType, m_AppInfo.WorkDir, bindingAtt);
+            Init(m_AppInfo.Assembly, m_AppInfo.WorkDir, bindingAtt);
         }
 
         public virtual Task Start()
@@ -34,7 +35,7 @@ namespace Xarial.AppLaunchKit.Common
             return Task.CompletedTask;
         }
 
-        protected virtual void Init(Type appType, string workDir, TSrvBindingAtt bindingAtt)
+        protected virtual void Init(Assembly appAssm, string workDir, TSrvBindingAtt bindingAtt)
         {
         }
 

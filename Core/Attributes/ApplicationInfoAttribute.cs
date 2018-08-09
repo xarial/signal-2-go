@@ -11,6 +11,7 @@ using Xarial.AppLaunchKit.Reflection;
 
 namespace Xarial.AppLaunchKit.Attributes
 {
+    [AttributeUsage(AttributeTargets.Assembly)]
     public class ApplicationInfoAttribute : Attribute
     {
         public string WorkingDirectory { get; private set; }

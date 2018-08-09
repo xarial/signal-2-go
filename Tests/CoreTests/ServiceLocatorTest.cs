@@ -34,6 +34,10 @@ namespace CoreTests
         {
         }
 
+        public class NonSrvAtt : Attribute
+        {
+        }
+
         public interface IServiceMock<TSrvBindingAtt> : IService<TSrvBindingAtt>
             where TSrvBindingAtt : ServiceBindingAttribute
         {
@@ -66,16 +70,16 @@ namespace CoreTests
         [TestMethod]
         public void TestConstructor()
         {
-            var appMockType1 = m_ServHelper.MockAppType("AppMock1", null, null, typeof(SrvAtt1));
+            var appMockType1 = m_ServHelper.MockAppAssembly(null, new SrvAtt1());
 
             var st1 = new Mock<BaseService<SrvAtt1>>().Object.GetType();
             var st2 = new Mock<IService>().Object.GetType();
             var st3 = new Mock<BaseService<SrvAtt2>>().Object.GetType();
 
-            var appMockType2 = m_ServHelper.MockAppType("AppMock2", null, null, typeof(SrvAtt1));
+            var appMockType2 = m_ServHelper.MockAppAssembly(null, new SrvAtt1());
             var appInfoMock2 = new AppInfo(appMockType2, new WindowWrapper(IntPtr.Zero), "", null, "");
 
-            var appMockType3 = m_ServHelper.MockAppType("AppMock3", null, null, typeof(Attribute));
+            var appMockType3 = m_ServHelper.MockAppAssembly(null, new NonSrvAtt());
             var appInfoMock3 = new AppInfo(appMockType3, new WindowWrapper(IntPtr.Zero), "", null, "");
 
             //does not throw
@@ -103,8 +107,8 @@ namespace CoreTests
         [TestMethod]
         public void TestGetServices()
         {
-            var appMockType1 = m_ServHelper.MockAppType("AppMock1", null, null,
-                typeof(SrvAtt1), typeof(SrvAtt2), typeof(SrvAtt3));
+            var appMockType1 = m_ServHelper.MockAppAssembly(null,
+                new SrvAtt1(), new SrvAtt2(), new SrvAtt3());
 
             var appInfoMock1 = new AppInfo(appMockType1, new WindowWrapper(IntPtr.Zero), "", null, "");
 
@@ -127,8 +131,8 @@ namespace CoreTests
         [TestMethod]
         public void TestGetService()
         {
-            var appMockType1 = m_ServHelper.MockAppType("AppMock1", null, null,
-                typeof(SrvAtt1), typeof(SrvAtt2));
+            var appMockType1 = m_ServHelper.MockAppAssembly(null,
+                new SrvAtt1(), new SrvAtt2());
 
             var appInfoMock1 = new AppInfo(appMockType1, new WindowWrapper(IntPtr.Zero), "", null, "");
 

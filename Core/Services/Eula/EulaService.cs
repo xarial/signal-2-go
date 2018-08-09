@@ -7,13 +7,10 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System;
 using System.IO;
-using System.Threading;
+using System.Reflection;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base;
 using Xarial.AppLaunchKit.Base.Services;
 using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Components;
-using Xarial.AppLaunchKit.Exceptions;
 using Xarial.AppLaunchKit.Helpers;
 using Xarial.AppLaunchKit.Properties;
 using Xarial.AppLaunchKit.Services.Attributes;
@@ -27,9 +24,7 @@ namespace Xarial.AppLaunchKit.Services.Eula
         public event Action EulaSigned;
         public event Action EulaRejected;
         public event Action EulaSkipped;
-
-        private Type m_AppType;
-
+        
         private string m_EulaContent;
         private string m_EulaFile;
 
@@ -53,9 +48,9 @@ namespace Xarial.AppLaunchKit.Services.Eula
         {
         }
 
-        internal EulaService(Type appType, string workDir, EulaAttribute bindingAtt)
+        internal EulaService(string workDir, EulaAttribute bindingAtt)
         {
-            Init(appType, workDir, bindingAtt);
+            Init(null, workDir, bindingAtt);
         }
 
         public bool ValidateEulaSigned(out string eulaContent)
@@ -114,10 +109,8 @@ namespace Xarial.AppLaunchKit.Services.Eula
             return false;
         }
 
-        protected override void Init(Type appType, string workDir, EulaAttribute bindingAtt)
+        protected override void Init(Assembly assm, string workDir, EulaAttribute bindingAtt)
         {
-            m_AppType = appType;
-
             if (bindingAtt == null)
             {
                 throw new ArgumentNullException(nameof(bindingAtt));

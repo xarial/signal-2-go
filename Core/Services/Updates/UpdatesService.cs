@@ -6,17 +6,13 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using System;
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Security.Authentication;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base;
 using Xarial.AppLaunchKit.Base.Services;
 using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Components;
-using Xarial.AppLaunchKit.Exceptions;
 using Xarial.AppLaunchKit.Helpers;
 using Xarial.AppLaunchKit.Services.Attributes;
 using Xarial.AppLaunchKit.Services.Updates.Exceptions;
@@ -29,9 +25,7 @@ namespace Xarial.AppLaunchKit.Services.Updates
         public event UpdateAvailableDelegate UpdateAvailable;
         public event Action UpdatesCheckCompleted;
         public event Action UpdatesCheckFailed;
-
-        private Type m_AppType;
-
+        
         private string m_ServerUrl;
 
         private Version m_Version;
@@ -56,9 +50,9 @@ namespace Xarial.AppLaunchKit.Services.Updates
         {
         }
 
-        internal UpdatesService(Type appType, UpdatesUrlAttribute bindingAtt)
+        internal UpdatesService(Assembly appAssm, UpdatesUrlAttribute bindingAtt)
         {
-            Init(appType, "", bindingAtt);
+            Init(appAssm, "", bindingAtt);
         }
 
         private void SetWebSettings()
@@ -155,15 +149,13 @@ namespace Xarial.AppLaunchKit.Services.Updates
             await CheckForUpdatesAsync();
         }
 
-        protected override void Init(Type appType, string workDir, UpdatesUrlAttribute bindingAtt)
+        protected override void Init(Assembly assm, string workDir, UpdatesUrlAttribute bindingAtt)
         {
             if (bindingAtt == null)
             {
                 throw new ArgumentNullException(nameof(bindingAtt));
             }
-
-            m_AppType = appType;
-
+            
             m_ServerUrl = bindingAtt.Url;
 
             if (string.IsNullOrEmpty(m_ServerUrl)
@@ -172,12 +164,12 @@ namespace Xarial.AppLaunchKit.Services.Updates
                 throw new CheckForUpdatesDataException("Specified updates server url is not of correct format");
             }
 
-            m_Version = m_AppType.Assembly.GetName().Version;
+            m_Version = assm.GetName().Version;
 
             if (m_Version == new Version(0, 0, 0, 0))
             {
                 throw new CheckForUpdatesDataException(
-                    $"Assembly of type {m_AppType.FullName} must be decorated with {typeof(AssemblyVersionAttribute).FullName} attribute");
+                    $"Assembly {assm.FullName} must be decorated with {typeof(AssemblyVersionAttribute).FullName} attribute");
             }
         }
     }

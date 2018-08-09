@@ -30,32 +30,8 @@ namespace CoreTests
             Cleanup();
         }
 
-        internal Type MockAppType(string typeName, Version assmVersion, string updatesUrl)
+        internal Assembly MockAppAssembly(Version assmVersion, params Attribute[] atts)
         {
-            return MockAppType(typeName, a=>
-            {
-                return new CustomAttributeBuilder(
-                    a.GetConstructor(
-                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                        new Type[] { typeof(string) }, null),
-                    new object[] { updatesUrl });
-            }, assmVersion, typeof(UpdatesUrlAttribute));
-        }
-
-        internal Type MockAppType(string typeName, Func<Type, CustomAttributeBuilder> attBuilder = null, 
-            Version assmVersion = null, params Type[] attTypes)
-        {
-            if (attBuilder == null)
-            {
-                attBuilder = new Func<Type, CustomAttributeBuilder>(attType => 
-                {
-                    return new CustomAttributeBuilder(
-                        attType.GetConstructor(
-                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                        Type.EmptyTypes, null), new object[0]);
-                });
-            }
-
             var assmName = new AssemblyName(Guid.NewGuid().ToString());
 
             if (assmVersion != null)
@@ -63,44 +39,53 @@ namespace CoreTests
                 assmName.Version = assmVersion;
             }
 
-            var builder =
-                AppDomain.CurrentDomain.DefineDynamicAssembly(
-                    assmName,
-                    AssemblyBuilderAccess.Run);
+            var builder = AppDomain.CurrentDomain.DefineDynamicAssembly(
+                    assmName, AssemblyBuilderAccess.Run);
 
-            var module = builder.DefineDynamicModule(Guid.NewGuid().ToString());
-
-            var typeBuilder = module.DefineType(typeName, TypeAttributes.Public);
-
-            if (attTypes != null)
+            if (atts != null)
             {
-                foreach (var attType in attTypes)
+                foreach (var att in atts)
                 {
-                    var custAttBuilder = attBuilder.Invoke(attType);
-                    typeBuilder.SetCustomAttribute(custAttBuilder);
+                    builder.SetCustomAttribute(BuildCustomAttribute(att));
                 }
             }
 
+            var module = builder.DefineDynamicModule(Guid.NewGuid().ToString());
+
+            var typeBuilder = module.DefineType(Guid.NewGuid().ToString(), TypeAttributes.Public);
+
             var type = typeBuilder.CreateType();
 
-            return type;
+            return type.Assembly;
         }
 
-        internal string CreateUpgradeServer(byte[] data)
+        private CustomAttributeBuilder BuildCustomAttribute(Attribute attribute)
         {
-            var filePath = Path.Combine(WorkingDir, Guid.NewGuid() + ".json");
-            var testUpgradeUrl = "file:///" + filePath.Replace('\\', '/');
-            File.WriteAllBytes(filePath, data);
+            var type = attribute.GetType();
+            ConstructorInfo constructor = null;
 
-            return testUpgradeUrl;
-        }
+            constructor = type.GetConstructors().FirstOrDefault(c => c.GetParameters().Length == 0);
 
-        internal static TAtt GetAttribute<TAtt>(Type type)
-            where TAtt : Attribute
-        {
-            TAtt att;
-            type.TryGetAttribute<TAtt>(out att);
-            return att;
+            var fields = new FieldInfo[0];
+            var constrArgs = new object[0];
+            var fieldValues = new object[0];
+
+            if (constructor == null)
+            {
+                constructor = type.GetConstructors().First();
+
+                var paramTypes = constructor.GetParameters().Select(p => p.ParameterType);
+
+                fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+                fieldValues = fields.Select(f => f.GetValue(attribute)).ToArray();
+
+                constrArgs = paramTypes.Select(p => Activator.CreateInstance(p)).ToArray();
+            }
+
+            return new CustomAttributeBuilder(constructor, constrArgs,
+                                             new PropertyInfo[0], new object[0],
+                                             fields, fieldValues);
         }
 
         private void Cleanup()

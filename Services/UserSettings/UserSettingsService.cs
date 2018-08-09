@@ -9,9 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using Xarial.AppLaunchKit.Base.Services;
 using Xarial.AppLaunchKit.Common;
 using Xarial.AppLaunchKit.Services.Attributes;
@@ -105,7 +103,7 @@ namespace Xarial.AppLaunchKit.Services.UserSettings
             return Path.Combine(m_SettingsRepository, name + ".setts");
         }
 
-        protected override void Init(Type appType, string workDir, UserSettingsAttribute bindingAtt)
+        protected override void Init(Assembly assm, string workDir, UserSettingsAttribute bindingAtt)
         {
             if (!string.IsNullOrEmpty(bindingAtt.StorageName))
             {

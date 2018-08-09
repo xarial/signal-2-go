@@ -1,15 +1,8 @@
 ﻿using CoreTests.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Attributes;
-using Xarial.AppLaunchKit.Exceptions;
 using Xarial.AppLaunchKit.Helpers;
-using Xarial.AppLaunchKit.Services;
 using Xarial.AppLaunchKit.Services.Attributes;
 using Xarial.AppLaunchKit.Services.Eula;
 using Xarial.AppLaunchKit.Services.Eula.Exceptions;
@@ -19,24 +12,6 @@ namespace CoreTests
     [TestClass]
     public class EulaServiceTest
     {
-        #region Mocks
-
-        [Eula("EULA Content")]
-        public class App1Mock
-        {
-        }
-
-        [Eula("")]
-        public class App2Mock
-        {
-        }
-
-        public class App3Mock
-        {
-        }
-
-        #endregion
-
         private ServiceHelper m_ServHelper;
 
         [TestInitialize]
@@ -56,11 +31,11 @@ namespace CoreTests
         {
             var workDir = Path.Combine(m_ServHelper.WorkingDir, Guid.NewGuid().ToString());
 
-            var srv1 = new EulaService(typeof(App1Mock), workDir, ServiceHelper.GetAttribute<EulaAttribute>(typeof(App1Mock)));
+            var srv1 = new EulaService(workDir, new EulaAttribute("EULA Content"));
                         
             Assert.AreEqual("EULA Content", srv1.EulaContent);
             
-            Assert.ThrowsException<EulaContentException>(() => new EulaService(typeof(App2Mock), workDir, ServiceHelper.GetAttribute<EulaAttribute>(typeof(App2Mock))));
+            Assert.ThrowsException<EulaContentException>(() => new EulaService(workDir, new EulaAttribute("")));
         }
 
         [TestMethod]
@@ -68,7 +43,7 @@ namespace CoreTests
         {
             var workDir = Path.Combine(m_ServHelper.WorkingDir, Guid.NewGuid().ToString());
 
-            var srv1 = new EulaService(typeof(App1Mock), workDir, ServiceHelper.GetAttribute<EulaAttribute>(typeof(App1Mock)));
+            var srv1 = new EulaService(workDir, new EulaAttribute("EULA Content"));
             
             string eulaContent;
             
@@ -98,7 +73,7 @@ namespace CoreTests
         public void TestSaveEulaConfirmation()
         {
             var workDir = Path.Combine(m_ServHelper.WorkingDir, Guid.NewGuid().ToString());
-            var srv1 = new EulaService(typeof(App1Mock), workDir, ServiceHelper.GetAttribute<EulaAttribute>(typeof(App1Mock)));
+            var srv1 = new EulaService(workDir, new EulaAttribute("EULA Content"));
             
             srv1.SaveEulaConfirmation();
 

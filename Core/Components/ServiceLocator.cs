@@ -64,7 +64,7 @@ namespace Xarial.AppLaunchKit.Components
 
         private void LoadAppServices(AppInfo appInfo)
         {
-            var atts = appInfo.ApplicationType.GetCustomAttributes(
+            var atts = appInfo.Assembly.GetCustomAttributes(
                             typeof(ServiceBindingAttribute), true)?.Cast<ServiceBindingAttribute>();
 
             if (atts?.Any() == true)
@@ -93,7 +93,7 @@ namespace Xarial.AppLaunchKit.Components
             }
             else
             {
-                throw new ServicesNotAttachedException(appInfo.ApplicationType);
+                throw new ServicesNotAttachedException(appInfo.Assembly);
             }
         }
         
@@ -109,7 +109,7 @@ namespace Xarial.AppLaunchKit.Components
                 if (LookupInServiceTypesDictionary(m_ServicesMap, typeof(TService), out attType))
                 {
                     throw new ServiceNotSupportedException(
-                        m_AppInfo.ApplicationType, typeof(TService), attType);
+                        m_AppInfo.Assembly, typeof(TService), attType);
                 }
                 else
                 {

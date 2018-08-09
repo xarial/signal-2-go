@@ -25,15 +25,7 @@ using Xarial.AppLaunchKit.Services.Updates.Exceptions;
 using Xarial.AppLaunchKit.Services.UserSettings;
 
 namespace SampleApp
-{
-    [Eula(typeof(Resources), nameof(Resources.test_eula))]
-    [AuthOidc("<Authority>", "<ClientId>", "<Redirect Url>", null, "openid profile", false)]
-    [UpdatesUrl(typeof(UpdatesServerMock), nameof(UpdatesServerMock.UpdateUrl))]
-    [Log("Xarial", "SampleApplication", true, false)]
-    [UserSettings("Settings", false, typeof(CustomUserSettingsBackwardCompatibility))]
-    [About(typeof(Resources), nameof(Resources.test_eula), nameof(Resources.test_licenses), nameof(Resources.app_logo))]
-    [ApplicationInfo(typeof(Resources), Environment.SpecialFolder.ApplicationData,
-        nameof(Resources.WorkDir), nameof(Resources.AppTitle), nameof(Resources.app_icon))]
+{   
     public partial class SampleForm : Form
     {
         private ServicesManager m_Kit;
@@ -47,7 +39,7 @@ namespace SampleApp
                 this.CreateHandle();
             }
 
-            m_Kit = new ServicesManager(this.GetType(), this.Handle,
+            m_Kit = new ServicesManager(this.GetType().Assembly, this.Handle,
                 typeof(EulaService),
                 typeof(UpdatesService),
                 typeof(OpenIdConnectorService),

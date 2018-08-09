@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using SampleApp;
+using SampleApp.Properties;
+using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Xarial.AppLaunchKit.Attributes;
+using Xarial.AppLaunchKit.Services.Attributes;
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
 [assembly: AssemblyTitle("SampleApp")]
 [assembly: AssemblyDescription("Sample application demonstrating the use of Signal2Go services")]
 [assembly: AssemblyConfiguration("")]
@@ -14,23 +16,17 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
-// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("69bf95c6-d0b7-446b-8b10-ce634d778593")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+[assembly: Eula(typeof(Resources), nameof(Resources.test_eula))]
+[assembly: AuthOidc("<Authority>", "<ClientId>", "<Redirect Url>", null, "openid profile", false)]
+[assembly: UpdatesUrl(typeof(UpdatesServerMock), nameof(UpdatesServerMock.UpdateUrl))]
+[assembly: Log("Xarial", "SampleApplication", true, false)]
+[assembly: UserSettings("Settings", false, typeof(CustomUserSettingsBackwardCompatibility))]
+[assembly: About(typeof(Resources), nameof(Resources.test_eula), nameof(Resources.test_licenses), nameof(Resources.app_logo))]
+[assembly: ApplicationInfo(typeof(Resources), Environment.SpecialFolder.ApplicationData, nameof(Resources.WorkDir), nameof(Resources.AppTitle), nameof(Resources.app_icon))] 
