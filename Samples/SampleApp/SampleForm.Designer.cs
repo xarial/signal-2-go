@@ -48,11 +48,16 @@
             this.lnkEventLog = new System.Windows.Forms.LinkLabel();
             this.lblLog2 = new System.Windows.Forms.Label();
             this.lnkAbout = new System.Windows.Forms.LinkLabel();
+            this.pnlAuth = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblAuth1 = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
+            this.lblAuth2 = new System.Windows.Forms.Label();
             this.pnlUpdates.SuspendLayout();
             this.tlpMain.SuspendLayout();
             this.pnlEula.SuspendLayout();
             this.pnlUserSettings.SuspendLayout();
             this.pnlLog.SuspendLayout();
+            this.pnlAuth.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlUpdates
@@ -61,10 +66,10 @@
             this.pnlUpdates.Controls.Add(this.lnkServer);
             this.pnlUpdates.Controls.Add(this.lblUpdates2);
             this.pnlUpdates.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUpdates.Location = new System.Drawing.Point(4, 83);
+            this.pnlUpdates.Location = new System.Drawing.Point(4, 148);
             this.pnlUpdates.Margin = new System.Windows.Forms.Padding(4);
             this.pnlUpdates.Name = "pnlUpdates";
-            this.pnlUpdates.Size = new System.Drawing.Size(505, 71);
+            this.pnlUpdates.Size = new System.Drawing.Size(505, 64);
             this.pnlUpdates.TabIndex = 0;
             // 
             // lblUpdates1
@@ -104,23 +109,25 @@
             // 
             this.tlpMain.ColumnCount = 1;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.Controls.Add(this.pnlUpdates, 0, 1);
-            this.tlpMain.Controls.Add(this.pnlEula, 0, 0);
-            this.tlpMain.Controls.Add(this.pnlUserSettings, 0, 2);
-            this.tlpMain.Controls.Add(this.pnlLog, 0, 3);
-            this.tlpMain.Controls.Add(this.lnkAbout, 0, 4);
+            this.tlpMain.Controls.Add(this.pnlUpdates, 0, 2);
+            this.tlpMain.Controls.Add(this.pnlEula, 0, 1);
+            this.tlpMain.Controls.Add(this.pnlUserSettings, 0, 3);
+            this.tlpMain.Controls.Add(this.pnlLog, 0, 4);
+            this.tlpMain.Controls.Add(this.lnkAbout, 0, 5);
+            this.tlpMain.Controls.Add(this.pnlAuth, 0, 0);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
             this.tlpMain.Margin = new System.Windows.Forms.Padding(4);
             this.tlpMain.Name = "tlpMain";
-            this.tlpMain.RowCount = 6;
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMain.RowCount = 7;
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpMain.Size = new System.Drawing.Size(513, 415);
+            this.tlpMain.Size = new System.Drawing.Size(513, 457);
             this.tlpMain.TabIndex = 1;
             // 
             // pnlEula
@@ -129,10 +136,10 @@
             this.pnlEula.Controls.Add(this.lnkEulaCache);
             this.pnlEula.Controls.Add(this.lblEula2);
             this.pnlEula.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlEula.Location = new System.Drawing.Point(4, 4);
+            this.pnlEula.Location = new System.Drawing.Point(4, 76);
             this.pnlEula.Margin = new System.Windows.Forms.Padding(4);
             this.pnlEula.Name = "pnlEula";
-            this.pnlEula.Size = new System.Drawing.Size(505, 71);
+            this.pnlEula.Size = new System.Drawing.Size(505, 64);
             this.pnlEula.TabIndex = 1;
             // 
             // lblEula1
@@ -174,9 +181,9 @@
             this.pnlUserSettings.Controls.Add(this.lblUserMessage);
             this.pnlUserSettings.Controls.Add(this.lblUserSettings2);
             this.pnlUserSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlUserSettings.Location = new System.Drawing.Point(3, 161);
+            this.pnlUserSettings.Location = new System.Drawing.Point(3, 219);
             this.pnlUserSettings.Name = "pnlUserSettings";
-            this.pnlUserSettings.Size = new System.Drawing.Size(507, 73);
+            this.pnlUserSettings.Size = new System.Drawing.Size(507, 66);
             this.pnlUserSettings.TabIndex = 2;
             // 
             // lblUserSettings1
@@ -224,9 +231,9 @@
             this.pnlLog.Controls.Add(this.lnkEventLog);
             this.pnlLog.Controls.Add(this.lblLog2);
             this.pnlLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLog.Location = new System.Drawing.Point(3, 240);
+            this.pnlLog.Location = new System.Drawing.Point(3, 291);
             this.pnlLog.Name = "pnlLog";
-            this.pnlLog.Size = new System.Drawing.Size(507, 73);
+            this.pnlLog.Size = new System.Drawing.Size(507, 66);
             this.pnlLog.TabIndex = 4;
             // 
             // lblLog1
@@ -262,7 +269,7 @@
             // lnkAbout
             // 
             this.lnkAbout.AutoSize = true;
-            this.lnkAbout.Location = new System.Drawing.Point(3, 316);
+            this.lnkAbout.Location = new System.Drawing.Point(3, 360);
             this.lnkAbout.Name = "lnkAbout";
             this.lnkAbout.Size = new System.Drawing.Size(57, 17);
             this.lnkAbout.TabIndex = 5;
@@ -270,11 +277,49 @@
             this.lnkAbout.Text = "About...";
             this.lnkAbout.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnAboutLinkClicked);
             // 
+            // pnlAuth
+            // 
+            this.pnlAuth.Controls.Add(this.lblAuth1);
+            this.pnlAuth.Controls.Add(this.lblUserName);
+            this.pnlAuth.Controls.Add(this.lblAuth2);
+            this.pnlAuth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlAuth.Location = new System.Drawing.Point(3, 3);
+            this.pnlAuth.Name = "pnlAuth";
+            this.pnlAuth.Size = new System.Drawing.Size(507, 66);
+            this.pnlAuth.TabIndex = 6;
+            // 
+            // lblAuth1
+            // 
+            this.lblAuth1.AutoSize = true;
+            this.lblAuth1.Location = new System.Drawing.Point(3, 0);
+            this.lblAuth1.Name = "lblAuth1";
+            this.lblAuth1.Size = new System.Drawing.Size(167, 17);
+            this.lblAuth1.TabIndex = 0;
+            this.lblAuth1.Text = "Currently logged in user: ";
+            // 
+            // lblUserName
+            // 
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.Location = new System.Drawing.Point(176, 0);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(20, 17);
+            this.lblUserName.TabIndex = 1;
+            this.lblUserName.Text = "...";
+            // 
+            // lblAuth2
+            // 
+            this.lblAuth2.AutoSize = true;
+            this.lblAuth2.Location = new System.Drawing.Point(3, 17);
+            this.lblAuth2.Name = "lblAuth2";
+            this.lblAuth2.Size = new System.Drawing.Size(430, 17);
+            this.lblAuth2.TabIndex = 2;
+            this.lblAuth2.Text = "Modify project user settings to set the auth service connection data";
+            // 
             // SampleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 415);
+            this.ClientSize = new System.Drawing.Size(513, 457);
             this.Controls.Add(this.tlpMain);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SampleForm";
@@ -289,6 +334,8 @@
             this.pnlUserSettings.PerformLayout();
             this.pnlLog.ResumeLayout(false);
             this.pnlLog.PerformLayout();
+            this.pnlAuth.ResumeLayout(false);
+            this.pnlAuth.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -314,6 +361,10 @@
         private System.Windows.Forms.Label lblUserMessage;
         private System.Windows.Forms.Label lblUserSettings2;
         private System.Windows.Forms.LinkLabel lnkAbout;
+        private System.Windows.Forms.FlowLayoutPanel pnlAuth;
+        private System.Windows.Forms.Label lblAuth1;
+        private System.Windows.Forms.Label lblUserName;
+        private System.Windows.Forms.Label lblAuth2;
     }
 }
 

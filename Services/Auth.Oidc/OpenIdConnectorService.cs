@@ -6,13 +6,17 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using IdentityModel.OidcClient;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Xarial.AppLaunchKit.Base.Services;
 using Xarial.AppLaunchKit.Common;
 using Xarial.AppLaunchKit.Services.Attributes;
+using Xarial.AppLaunchKit.Services.Auth.Oidc.Data;
 using Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions;
+using Xarial.AppLaunchKit.Services.Auth.Oidc.Properties;
 using Xarial.AppLaunchKit.Services.Auth.Oidc.UI;
 
 namespace Xarial.AppLaunchKit.Services.Auth.Oidc
@@ -28,7 +32,9 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
         private string m_Scope;
         private bool m_LoadProfile;
         private string m_RedirectUrl;
-        
+
+        private string m_AuthDataFile;
+
         public OpenIdConnectorService()
         {   
         }
@@ -64,12 +70,19 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
                 var loginRequest = new LoginRequest();
                 
                 var state = await client.PrepareLoginAsync();
-                
-                var loginRes = await Login(client, state, true);
 
-                if (loginRes.User == null)
+                var authData = GetUserData();
+
+                LoginResult loginRes = null;
+
+                if (authData.StayLoggedIn)
                 {
-                    loginRes = await Login(client, state, false);
+                    loginRes = await Login(client, state, true, authData.StayLoggedIn);
+                }
+
+                if (loginRes?.User == null)
+                {
+                    loginRes = await Login(client, state, false, authData.StayLoggedIn);
                 }
                 
                 if (loginRes.User != null)
@@ -88,27 +101,70 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
             }
         }
 
-        private async Task<LoginResult> Login(OidcClient client, AuthorizeState state, bool silent)
+        private async Task<LoginResult> Login(OidcClient client, AuthorizeState state, bool silent, bool stayLoggedIn)
         {
             try
             {
                 var dlg = this.CreateDialog<WinFormServiceDialog<LoginForm>>("Login to {0}");
 
-                var res = await dlg.Form.LoginAsync(
+                dlg.Form.SetData(stayLoggedIn);
+
+                var dlgRes = await dlg.Form.LoginAsync(
                     state.StartUrl + (silent ? "&prompt=none" : ""),
                     state.RedirectUri, !silent);
-
-                if (string.IsNullOrEmpty(res.Response))
+                
+                if (string.IsNullOrEmpty(dlgRes.Response))
                 {
                     throw new NullReferenceException("Cancelled by the user");
                 }
 
-                return await client.ProcessResponseAsync(res.Response, state);
+                var res = await client.ProcessResponseAsync(dlgRes.Response, state);
+
+                if (res.User != null)
+                {
+                    CacheUserData(dlgRes.StayLoggedIn);
+                }
+
+                return res;
             }
             catch(Exception ex)
             {
                 return new LoginResult(ex.Message);
             }
+        }
+
+        private void CacheUserData(bool stayLoggedIn)
+        {
+            try
+            {
+                Helpers.JsonSerializer.SerializeToFile(new AuthData()
+                {
+                    StayLoggedIn = stayLoggedIn
+                }, m_AuthDataFile);
+            }
+            catch
+            {
+            }
+        }
+
+        private AuthData GetUserData()
+        {
+            AuthData authData = null;
+
+            try
+            {
+                authData = Helpers.JsonSerializer.DeserializeFromFile<AuthData>(m_AuthDataFile);
+            }
+            catch
+            {
+            }
+
+            if (authData == null)
+            {
+                authData = new AuthData();
+            }
+
+            return authData;
         }
 
         protected override void Init(Assembly assm, string workDir, AuthOidcAttribute bindingAtt)
@@ -119,6 +175,8 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
             m_Scope = bindingAtt.Scope;
             m_LoadProfile = bindingAtt.LoadProfile;
             m_RedirectUrl = bindingAtt.RedirectUrl;
+
+            m_AuthDataFile = Path.Combine(workDir, Settings.Default.AuthDataFileName);
         }
     }
 }

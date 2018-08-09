@@ -50,7 +50,8 @@ namespace SampleApp
             m_Kit.ServicesLaunchCompleted += OnServicesLaunchCompleted;
             m_Kit.ServicesLaunchTerminated += OnServicesLaunchTerminated;
             m_Kit.HandleError += OnHandleError;
-            
+
+            m_Kit.GetService<IOpenIdConnectorService>().LoggedIn += OnUserLoggedIn;
             m_Kit.StartServices();
 
             m_Kit.GetService<ILogService>().LogMessage("Starting the application");
@@ -58,6 +59,11 @@ namespace SampleApp
             var setts = m_Kit.GetService<IUserSettingsService>().ReadSettings<CustomUserSettings>("user");
             lblUserMessage.Text = setts.Message;
             m_Kit.GetService<IUserSettingsService>().StoreSettings(setts, "user");
+        }
+
+        private void OnUserLoggedIn(string identity)
+        {
+            lblUserName.Text = identity;
         }
 
         private void OnServicesLaunchTerminated()

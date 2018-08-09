@@ -20,6 +20,31 @@ namespace Xarial.AppLaunchKit.Helpers
             return (T)ser.ReadObject(stream);
         }
 
+        public static T DeserializeFromFile<T>(string filePath)
+        {
+            using (var fileStream = File.OpenRead(filePath))
+            {
+                var data = Deserialize<T>(fileStream);
+
+                return data;
+            }
+        }
+
+        public static void SerializeToFile<T>(T obj, string filePath)
+        {
+            var dir = Path.GetDirectoryName(filePath);
+
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            using (var file = File.Create(filePath))
+            {
+                Serialize(obj, file);
+            }
+        }
+
         public static void Serialize<T>(T obj, Stream stream)
         {
             var ser = new DataContractJsonSerializer(typeof(T));

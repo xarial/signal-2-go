@@ -64,21 +64,11 @@ namespace Xarial.AppLaunchKit.Services.Eula
         {
             try
             {
-                var dir = Path.GetDirectoryName(m_EulaFile);
-
-                if (!Directory.Exists(dir))
+                JsonSerializer.SerializeToFile(new EulaAgreementData()
                 {
-                    Directory.CreateDirectory(dir);
-                }
-
-                using (var file = File.Create(m_EulaFile))
-                {
-                    JsonSerializer.Serialize(new EulaAgreementData()
-                    {
-                        IsAgreed = true,
-                        TimeStamp = DateTime.Now
-                    }, file);
-                }
+                    IsAgreed = true,
+                    TimeStamp = DateTime.Now
+                }, m_EulaFile);
             }
             catch
             {
@@ -91,14 +81,11 @@ namespace Xarial.AppLaunchKit.Services.Eula
             {
                 if (File.Exists(eulaFilePath))
                 {
-                    using (var fileStream = File.OpenRead(eulaFilePath))
-                    {
-                        var eulaData = JsonSerializer.Deserialize<EulaAgreementData>(fileStream);
+                    var eulaData = JsonSerializer.DeserializeFromFile<EulaAgreementData>(eulaFilePath);
 
-                        if (eulaData != null)
-                        {
-                            return eulaData.IsAgreed;
-                        }
+                    if (eulaData != null)
+                    {
+                        return eulaData.IsAgreed;
                     }
                 }
             }

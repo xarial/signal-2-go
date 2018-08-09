@@ -5,13 +5,6 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +16,11 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc.UI
         public LoginForm()
         {
             InitializeComponent();
+        }
+
+        internal void SetData(bool stayLoggedIn)
+        {
+            chkStayLoggedIn.Checked = stayLoggedIn;
         }
 
         public async Task<LoginData> LoginAsync(string url, string redirectUrl, bool showForm)
@@ -37,7 +35,7 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc.UI
                 {
                     if (e.Url.ToString().StartsWith(redirectUrl))
                     {
-                        res = new LoginData(true, e.Url.ToString());
+                        res = new LoginData(true, chkStayLoggedIn.Checked, e.Url.ToString());
                         this.Close();
                     }
                     else if (!showForm)
@@ -46,7 +44,7 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc.UI
                     }
                 };
 
-                this.FormClosed += (s, e) => signal.Release();
+                this.Disposed += (s, e) => signal.Release();
                 
                 ctrlBrowser.Navigate(url);
 

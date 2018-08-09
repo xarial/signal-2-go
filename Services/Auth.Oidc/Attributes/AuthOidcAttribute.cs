@@ -5,7 +5,9 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
+using System;
 using Xarial.AppLaunchKit.Components;
+using Xarial.AppLaunchKit.Reflection;
 
 namespace Xarial.AppLaunchKit.Services.Attributes
 {
@@ -17,6 +19,17 @@ namespace Xarial.AppLaunchKit.Services.Attributes
         public string Scope { get; private set; }
         public bool LoadProfile { get; private set; }
         public string RedirectUrl { get; private set; }
+
+        public AuthOidcAttribute(Type resourceType, string authorityResName, string clientIdResName,
+            string redirectUrlResName, string clientSecretResName, string scopeResName, string loadProfileResName)
+            : this(ResourceHelper.GetResource<string>(resourceType, authorityResName),
+                  ResourceHelper.GetResource<string>(resourceType, clientIdResName),
+                  ResourceHelper.GetResource<string>(resourceType, redirectUrlResName),
+                  ResourceHelper.GetResource<string>(resourceType, clientSecretResName),
+                  ResourceHelper.GetResource<string>(resourceType, scopeResName),
+                  ResourceHelper.GetResource<bool>(resourceType, loadProfileResName))
+        {
+        }
 
         public AuthOidcAttribute(string authority, string clientId,
             string redirectUrl)
