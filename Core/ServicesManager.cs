@@ -16,7 +16,7 @@ using Xarial.AppLaunchKit.Services.Eula;
 using Xarial.AppLaunchKit.Services.Updates;
 using System.Threading.Tasks;
 using System.Threading;
-using Xarial.AppLaunchKit.Services.Log;
+using Xarial.AppLaunchKit.Services.Logger;
 using System.Reflection;
 
 namespace Xarial.AppLaunchKit

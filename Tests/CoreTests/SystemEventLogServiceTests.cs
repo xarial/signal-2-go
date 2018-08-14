@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xarial.AppLaunchKit.Services.Log;
+using Xarial.AppLaunchKit.Services.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;

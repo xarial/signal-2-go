@@ -19,7 +19,7 @@ using Xarial.AppLaunchKit.Services.Auth.Oidc;
 using Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions;
 using Xarial.AppLaunchKit.Services.Eula;
 using Xarial.AppLaunchKit.Services.Eula.Exceptions;
-using Xarial.AppLaunchKit.Services.Log;
+using Xarial.AppLaunchKit.Services.Logger;
 using Xarial.AppLaunchKit.Services.Updates;
 using Xarial.AppLaunchKit.Services.Updates.Exceptions;
 using Xarial.AppLaunchKit.Services.UserSettings;

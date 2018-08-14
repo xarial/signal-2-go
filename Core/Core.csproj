@@ -101,8 +101,8 @@
     <Compile Include="Services\Eula\UI\EulaForm.Designer.cs">
       <DependentUpon>EulaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Services\Log\Exceptions\LogException.cs" />
-    <Compile Include="Services\Log\SystemEventLogService.cs" />
+    <Compile Include="Services\Logger\Exceptions\LogException.cs" />
+    <Compile Include="Services\Logger\SystemEventLogService.cs" />
     <Compile Include="Services\Updates\Exceptions\CheckForUpdatesDataException.cs" />
     <Compile Include="Services\Updates\Exceptions\UpdatesCheckException.cs" />
     <Compile Include="Services\Updates\LatestVersionInfo.cs" />
