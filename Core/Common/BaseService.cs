@@ -41,7 +41,16 @@ namespace Xarial.AppLaunchKit.Common
 
         protected async Task RunAsyncInCurrentSynchronizationContext(Action action)
         {
-            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            TaskScheduler scheduler = null;
+
+            if (SynchronizationContext.Current != null)
+            {
+                scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            }
+            else
+            {
+                scheduler = TaskScheduler.Current;
+            }
 
             await Task.Factory.StartNew(
                 () => action(), new CancellationToken(),
