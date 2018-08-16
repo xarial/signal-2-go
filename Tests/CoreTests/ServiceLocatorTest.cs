@@ -34,6 +34,10 @@ namespace CoreTests
         {
         }
 
+        public class SrvAtt5 : SrvAtt1
+        {
+        }
+
         public class NonSrvAtt : Attribute
         {
         }
@@ -102,6 +106,18 @@ namespace CoreTests
 
             Assert.ThrowsException<ServicesNotAttachedException>(() => new ServiceLocator(
                 appInfoMock3, st1, typeof(ServiceMock)));
+        }
+
+        [TestMethod]
+        public void TestConstructorInheritedBindingAtt()
+        {
+            var appMockType1 = m_ServHelper.MockAppAssembly(null, new SrvAtt5());
+
+            var st1 = new Mock<BaseService<SrvAtt1>>().Object.GetType();
+
+            //does not throw
+            new ServiceLocator(
+                new AppInfo(appMockType1, new WindowWrapper(IntPtr.Zero), "", null, ""), st1);
         }
 
         [TestMethod]

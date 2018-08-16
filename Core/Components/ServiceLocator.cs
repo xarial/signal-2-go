@@ -72,7 +72,7 @@ namespace Xarial.AppLaunchKit.Components
                 foreach (var att in atts)
                 {
                     var srvTypesMap = m_ServicesMap.Where(
-                        m => m.Value == att.GetType());
+                        m => m.Value.IsAssignableFrom(att.GetType()));
 
                     if (srvTypesMap.Count() == 1)
                     {
