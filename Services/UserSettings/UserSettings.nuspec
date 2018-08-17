@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Xarial.Signal2Go.Services.UserSettings</id>
+    <version>0.1.0-beta</version>
+    <title>Signal2Go</title>
+    <authors>Xarial</authors>
+    <owners>Xarial</owners>
+    <licenseUrl>https://github.com/xarial/signal-2-go/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://www.xarial.net/products/developers/signal-2-go/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>User settings management service for Signal2GO</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © Xarial 2018</copyright>
+    <tags>Services User Settings</tags>
+  </metadata>
+</package>

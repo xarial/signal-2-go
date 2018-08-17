@@ -31,6 +31,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>xarial.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="IdentityModel, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IdentityModel.3.8.0\lib\net452\IdentityModel.dll</HintPath>
@@ -126,6 +132,9 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xarial.Signal2Go, Version=0.1.0.0, Culture=neutral, PublicKeyToken=60c8d43397840914, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xarial.Signal2Go.0.1.0-beta\lib\net461\Xarial.Signal2Go.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AuthOidcAttribute.cs" />
@@ -155,12 +164,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.csproj">
-      <Project>{aa4345f8-2fc8-4b74-84f7-986e8b83b752}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
+    <None Include="xarial.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\LoginForm.resx">
