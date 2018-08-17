@@ -83,16 +83,13 @@ namespace Xarial.AppLaunchKit
 
         public void StartServices()
         {
-            TaskScheduler scheduler = null;
+            if (SynchronizationContext.Current == null)
+            {
+                SynchronizationContext.SetSynchronizationContext(
+                    new System.Windows.Forms.WindowsFormsSynchronizationContext());
+            }
 
-            if (SynchronizationContext.Current != null)
-            {
-                scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            }
-            else
-            {
-                scheduler = TaskScheduler.Current;
-            }
+            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
             Task.Factory.StartNew(
                 () => StartServicesAsync(), new CancellationToken(),
