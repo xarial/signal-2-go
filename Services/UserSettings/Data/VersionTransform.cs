@@ -19,9 +19,24 @@ namespace Xarial.AppLaunchKit.Services.UserSettings.Data
 
         public VersionTransform(Version from, Version to, Func<JToken, JToken> transform)
         {
-            From = from ?? throw new ArgumentNullException(nameof(from));
-            To = to ?? throw new ArgumentNullException(nameof(to));
-            m_Transform = transform ?? throw new ArgumentNullException(nameof(transform));
+            if (from == null)
+            {
+                throw new ArgumentNullException(nameof(from));
+            }
+
+            if (to == null)
+            {
+                throw new ArgumentNullException(nameof(to));
+            }
+
+            if (transform == null)
+            {
+                throw new ArgumentNullException(nameof(transform));
+            }
+
+            From = from;
+            To = to;
+            m_Transform = transform;
         }
 
         public JToken Transform(JToken input)
