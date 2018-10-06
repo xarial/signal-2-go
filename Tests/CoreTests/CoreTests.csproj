@@ -40,10 +40,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>xarial.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -107,7 +108,6 @@
     <None Include="Resources\mock1.setts" />
     <None Include="Resources\mock2.setts" />
     <None Include="Resources\test_eula.rtf" />
-    <None Include="xarial.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -119,13 +119,13 @@
     <None Include="Resources\app_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Services\Auth.Oidc\Auth.Oidc.csproj">
-      <Project>{1be1962e-358f-43f9-aaea-329a3db28ce0}</Project>
-      <Name>Auth.Oidc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.csproj">
       <Project>{aa4345f8-2fc8-4b74-84f7-986e8b83b752}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Auth.Oidc\Auth.Oidc.csproj">
+      <Project>{1be1962e-358f-43f9-aaea-329a3db28ce0}</Project>
+      <Name>Auth.Oidc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\UserSettings\UserSettings.csproj">
       <Project>{fcb9f4ab-86fe-4dbc-8733-02238798a5d1}</Project>
