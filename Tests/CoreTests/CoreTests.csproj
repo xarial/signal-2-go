@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="CheckForUpdatesServiceTest.cs" />
     <Compile Include="EulaServiceTest.cs" />
+    <Compile Include="ExternalProcessServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -122,6 +123,10 @@
     <ProjectReference Include="..\..\Core\Core.csproj">
       <Project>{aa4345f8-2fc8-4b74-84f7-986e8b83b752}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExternalApp\ExternalApp.csproj">
+      <Project>{69fd8191-0f8e-4fc8-a764-9ab67f64b348}</Project>
+      <Name>ExternalApp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Auth.Oidc\Auth.Oidc.csproj">
       <Project>{1be1962e-358f-43f9-aaea-329a3db28ce0}</Project>

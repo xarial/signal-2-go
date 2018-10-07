@@ -59,6 +59,7 @@
     <Compile Include="Base\IServiceDialog.cs" />
     <Compile Include="Base\Services\IAboutApplicationService.cs" />
     <Compile Include="Base\Services\IEulaService.cs" />
+    <Compile Include="Base\Services\IExternalProcessService.cs" />
     <Compile Include="Base\Services\ILogService.cs" />
     <Compile Include="Base\Services\IOpenIdConnectorService.cs" />
     <Compile Include="Base\Services\IUpdatesService.cs" />
@@ -97,6 +98,7 @@
     </Compile>
     <Compile Include="Services\Attributes\AboutAttribute.cs" />
     <Compile Include="Services\Attributes\EulaAttribute.cs" />
+    <Compile Include="Services\Attributes\ExternalProcessAttribute.cs" />
     <Compile Include="Services\Attributes\LogAttribute.cs" />
     <Compile Include="Services\Attributes\UpdatesUrlAttribute.cs" />
     <Compile Include="Services\Eula\EulaAgreementData.cs" />
@@ -109,6 +111,9 @@
     <Compile Include="Services\Eula\UI\EulaForm.Designer.cs">
       <DependentUpon>EulaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\ExternalProcess\Exceptions\ExternalProcessStartException.cs" />
+    <Compile Include="Services\ExternalProcess\Exceptions\ExternalProcessNotFoundException.cs" />
+    <Compile Include="Services\ExternalProcess\ExternalProcessService.cs" />
     <Compile Include="Services\Logger\Exceptions\LogException.cs" />
     <Compile Include="Services\Logger\SystemEventLogService.cs" />
     <Compile Include="Services\Updates\Exceptions\CheckForUpdatesDataException.cs" />
