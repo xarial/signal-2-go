@@ -13,7 +13,9 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 
+#if !PUBLISH
 [assembly: InternalsVisibleTo("CoreTests")]
+#endif
 
 [assembly: Guid("aa4345f8-2fc8-4b74-84f7-986e8b83b752")]
 
