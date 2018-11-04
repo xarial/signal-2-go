@@ -104,7 +104,6 @@ namespace Xarial.AppLaunchKit.Services.UserSettings.Tests
             var setts2 = srv1.ReadSettings<SettsMock1>("mock2");
             var setts3 = srv1.ReadSettings<SettsMock2>("mock1");
             var setts4 = srv1.ReadSettings<SettsMock2>("mock2");
-
             var setts5 = srv2.ReadSettings<SettsMock1>("mock1");
             var setts6 = srv2.ReadSettings<SettsMock1>("mock2");
             var setts7 = srv2.ReadSettings<SettsMock2>("mock1");

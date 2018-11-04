@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xarial.Signal2Go.Services.Auth.Oidc</id>
-    <version>0.1.0-beta</version>
+    <version>0.2.0</version>
     <title>Signal2Go</title>
     <authors>Xarial</authors>
     <owners>Xarial</owners>

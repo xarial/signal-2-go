@@ -19,6 +19,7 @@ using Xarial.AppLaunchKit.Services.Auth.Oidc;
 using Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions;
 using Xarial.AppLaunchKit.Services.Eula;
 using Xarial.AppLaunchKit.Services.Eula.Exceptions;
+using Xarial.AppLaunchKit.Services.External;
 using Xarial.AppLaunchKit.Services.Logger;
 using Xarial.AppLaunchKit.Services.Updates;
 using Xarial.AppLaunchKit.Services.Updates.Exceptions;
@@ -45,7 +46,8 @@ namespace SampleApp
                 typeof(OpenIdConnectorService),
                 typeof(UserSettingsService),
                 typeof(SystemEventLogService),
-                typeof(AboutApplicationService));
+                typeof(AboutApplicationService),
+                typeof(ExternalProcessService));
 
             m_Kit.ServicesLaunchCompleted += OnServicesLaunchCompleted;
             m_Kit.ServicesLaunchTerminated += OnServicesLaunchTerminated;

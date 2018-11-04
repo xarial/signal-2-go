@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,10 +36,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>xarial.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Publish|AnyCPU'">
+    <OutputPath>bin\Publish\</OutputPath>
+    <DefineConstants>TRACE;PUBLISH</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,6 +70,7 @@
     <Compile Include="Base\IServiceDialog.cs" />
     <Compile Include="Base\Services\IAboutApplicationService.cs" />
     <Compile Include="Base\Services\IEulaService.cs" />
+    <Compile Include="Base\Services\IExternalProcessService.cs" />
     <Compile Include="Base\Services\ILogService.cs" />
     <Compile Include="Base\Services\IOpenIdConnectorService.cs" />
     <Compile Include="Base\Services\IUpdatesService.cs" />
@@ -96,6 +109,7 @@
     </Compile>
     <Compile Include="Services\Attributes\AboutAttribute.cs" />
     <Compile Include="Services\Attributes\EulaAttribute.cs" />
+    <Compile Include="Services\Attributes\ExternalProcessAttribute.cs" />
     <Compile Include="Services\Attributes\LogAttribute.cs" />
     <Compile Include="Services\Attributes\UpdatesUrlAttribute.cs" />
     <Compile Include="Services\Eula\EulaAgreementData.cs" />
@@ -108,6 +122,9 @@
     <Compile Include="Services\Eula\UI\EulaForm.Designer.cs">
       <DependentUpon>EulaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\ExternalProcess\Exceptions\ExternalProcessStartException.cs" />
+    <Compile Include="Services\ExternalProcess\Exceptions\ExternalProcessNotFoundException.cs" />
+    <Compile Include="Services\ExternalProcess\ExternalProcessService.cs" />
     <Compile Include="Services\Logger\Exceptions\LogException.cs" />
     <Compile Include="Services\Logger\SystemEventLogService.cs" />
     <Compile Include="Services\Updates\Exceptions\CheckForUpdatesDataException.cs" />
@@ -127,7 +144,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="xarial.snk" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Services\About\UI\AboutForm.resx">

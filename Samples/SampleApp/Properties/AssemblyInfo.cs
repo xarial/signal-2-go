@@ -39,3 +39,5 @@ using Xarial.AppLaunchKit.Services.Attributes;
 
 [assembly: ApplicationInfo(typeof(Resources), Environment.SpecialFolder.ApplicationData,
     nameof(Resources.WorkDir), nameof(Resources.AppTitle), nameof(Resources.app_icon))] 
+
+[assembly: ExternalProcess("Aasdsda")]
