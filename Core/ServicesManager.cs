@@ -81,6 +81,7 @@ namespace Xarial.AppLaunchKit
             m_ServiceLocator = new ServiceLocator(m_AppInfo, servicesTypes);
         }
 
+        [Obsolete]
         public void StartServices()
         {
             if (SynchronizationContext.Current == null)
@@ -94,6 +95,23 @@ namespace Xarial.AppLaunchKit
             Task.Factory.StartNew(
                 () => StartServicesAsync(), new CancellationToken(),
                 TaskCreationOptions.None, scheduler);
+        }
+
+        public void StartServicesInBackground()
+        {
+            var syncContext = SynchronizationContext.Current;
+
+            if (syncContext == null)
+            {
+                syncContext = new System.Windows.Forms.WindowsFormsSynchronizationContext();
+            }
+
+            Task.Run(() =>
+            {
+                SynchronizationContext.SetSynchronizationContext(
+                        syncContext);
+                StartServicesAsync().Wait();
+            });
         }
 
         public async Task StartServicesAsync()

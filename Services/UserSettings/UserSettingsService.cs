@@ -35,27 +35,39 @@ namespace Xarial.AppLaunchKit.Services.UserSettings
             Init(null, workDir, bindingAtt);
         }
 
-        public T ReadSettings<T>(string name = "")
+        public T ReadSettings<T>(string nameOrPath = "")
         {
             try
             {
                 JsonConverter converter;
 
-                var settsFile = GetSettingsFileName(name);
+                var settsFile = GetSettingsFileName<T>(nameOrPath);
 
-                if (!File.Exists(settsFile))
+                var fileExist = File.Exists(settsFile);
+
+                string settsData = null;
+
+                if (fileExist)
                 {
-                    throw new FileNotFoundException(settsFile);
+                    settsData = File.ReadAllText(settsFile);
                 }
-
-                var settsData = File.ReadAllText(settsFile);
 
                 if (m_ReadConverters.TryGetValue(typeof(T), out converter))
                 {
+                    if (string.IsNullOrEmpty(settsData))
+                    {
+                        settsData = new Newtonsoft.Json.Linq.JObject().ToString();
+                    }
+
                     return JsonConvert.DeserializeObject<T>(settsData, converter);
                 }
                 else
                 {
+                    if (!fileExist)
+                    {
+                        throw new FileNotFoundException(settsFile);
+                    }
+
                     return JsonConvert.DeserializeObject<T>(settsData);
                 }
             }
@@ -72,11 +84,11 @@ namespace Xarial.AppLaunchKit.Services.UserSettings
             }
         }
 
-        public void StoreSettings<T>(T setts, string name = "")
+        public void StoreSettings<T>(T setts, string nameOrPath = "")
         {
             try
             {
-                var settsFile = GetSettingsFileName(name);
+                var settsFile = GetSettingsFileName<T>(nameOrPath);
 
                 var settsDir = Path.GetDirectoryName(settsFile);
 
@@ -98,9 +110,21 @@ namespace Xarial.AppLaunchKit.Services.UserSettings
             }
         }
 
-        private string GetSettingsFileName(string name)
+        private string GetSettingsFileName<T>(string nameOrPath)
         {
-            return Path.Combine(m_SettingsRepository, name + ".setts");
+            if (string.IsNullOrEmpty(nameOrPath))
+            {
+                nameOrPath = typeof(T).FullName;
+            }
+
+            if (Path.IsPathRooted(nameOrPath))
+            {
+                return nameOrPath;
+            }
+            else
+            {
+                return Path.Combine(m_SettingsRepository, nameOrPath + ".setts");
+            }
         }
 
         protected override void Init(Assembly assm, string workDir, UserSettingsAttribute bindingAtt)
