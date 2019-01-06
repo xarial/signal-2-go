@@ -9,7 +9,7 @@ namespace Xarial.AppLaunchKit.Base.Services
 {
     public interface IUserSettingsService : IService
     {
-        T ReadSettings<T>(string name = "");
-        void StoreSettings<T>(T setts, string name = "");
+        T ReadSettings<T>(string nameOrPath = "");
+        void StoreSettings<T>(T setts, string nameOrPath = "");
     }
 }

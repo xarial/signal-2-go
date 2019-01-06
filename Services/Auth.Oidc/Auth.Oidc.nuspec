@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Open ID Connect authentification service for Signal2GO</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright © Xarial 2018</copyright>
+    <copyright>Copyright © Xarial 2019</copyright>
     <tags>Services Auth Oidc</tags>
   </metadata>
 </package>

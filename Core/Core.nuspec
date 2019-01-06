@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xarial.Signal2Go</id>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <title>Signal2Go</title>
     <authors>Xarial</authors>
     <owners>Xarial</owners>
@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Collection of services which can be enabled by decorating the assembly with binding attribute</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright © Xarial 2018</copyright>
+    <copyright>Copyright © Xarial 2019</copyright>
     <tags>Services About Auth Updates Settings Eula</tags>
   </metadata>
 </package>
