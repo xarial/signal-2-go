@@ -133,7 +133,7 @@
     <None Include="Resources\app_icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.csproj">
+    <ProjectReference Include="..\..\src\Core\Core.csproj">
       <Project>{aa4345f8-2fc8-4b74-84f7-986e8b83b752}</Project>
       <Name>Core</Name>
     </ProjectReference>
