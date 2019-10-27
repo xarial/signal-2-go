@@ -8,7 +8,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using System;
 using System.Reflection;
 
-namespace Xarial.AppLaunchKit.Reflection
+namespace Xarial.Signal2Go.Reflection
 {
     public static class ResourceHelper
     {

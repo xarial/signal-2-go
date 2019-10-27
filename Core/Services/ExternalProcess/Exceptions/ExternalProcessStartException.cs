@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xarial.AppLaunchKit.Services.ExternalProcess.Exceptions
+namespace Xarial.Signal2Go.Services.ExternalProcess.Exceptions
 {
     public class ExternalProcessStartException : Exception
     {

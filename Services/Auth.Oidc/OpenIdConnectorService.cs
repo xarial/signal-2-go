@@ -11,15 +11,15 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base.Services;
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.Auth.Oidc.Data;
-using Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions;
-using Xarial.AppLaunchKit.Services.Auth.Oidc.Properties;
-using Xarial.AppLaunchKit.Services.Auth.Oidc.UI;
+using Xarial.Signal2Go.Base.Services;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.Auth.Oidc.Data;
+using Xarial.Signal2Go.Services.Auth.Oidc.Exceptions;
+using Xarial.Signal2Go.Services.Auth.Oidc.Properties;
+using Xarial.Signal2Go.Services.Auth.Oidc.UI;
 
-namespace Xarial.AppLaunchKit.Services.Auth.Oidc
+namespace Xarial.Signal2Go.Services.Auth.Oidc
 {
     public class OpenIdConnectorService : BaseService<AuthOidcAttribute>, IOpenIdConnectorService
     {
@@ -39,7 +39,7 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
         {   
         }
         
-        public override async Task Start()
+        public override async Task StartAsync()
         {
             await LoginAsync();
         }
@@ -137,10 +137,11 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
         {
             try
             {
-                Helpers.JsonSerializer.SerializeToFile(new AuthData()
-                {
-                    StayLoggedIn = stayLoggedIn
-                }, m_AuthDataFile);
+                File.WriteAllText(m_AuthDataFile, 
+                    JsonConvert.SerializeObject(new AuthData()
+                    {
+                        StayLoggedIn = stayLoggedIn
+                    }));
             }
             catch
             {
@@ -153,7 +154,7 @@ namespace Xarial.AppLaunchKit.Services.Auth.Oidc
 
             try
             {
-                authData = Helpers.JsonSerializer.DeserializeFromFile<AuthData>(m_AuthDataFile);
+                authData = JsonConvert.DeserializeObject<AuthData>(File.ReadAllText(m_AuthDataFile));
             }
             catch
             {

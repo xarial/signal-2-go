@@ -7,7 +7,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System;
 
-namespace Xarial.AppLaunchKit.Components
+namespace Xarial.Signal2Go.Components
 {
     [AttributeUsage(AttributeTargets.Assembly)]
     public abstract class ServiceBindingAttribute : Attribute

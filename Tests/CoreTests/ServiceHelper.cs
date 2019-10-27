@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Attributes;
-using Xarial.AppLaunchKit.Services.Attributes;
+using Xarial.Signal2Go.Attributes;
+using Xarial.Signal2Go.Services.Attributes;
 
 namespace CoreTests
 {

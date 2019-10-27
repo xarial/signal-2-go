@@ -7,7 +7,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System.Reflection;
 
-namespace Xarial.AppLaunchKit.Exceptions
+namespace Xarial.Signal2Go.Exceptions
 {
     public class ServicesNotAttachedException : ServiceLocatorException
     {

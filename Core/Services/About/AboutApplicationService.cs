@@ -5,14 +5,14 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Services.About.UI;
-using Xarial.AppLaunchKit.Services.Attributes;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Services.About.UI;
 using System.Reflection;
-using Xarial.AppLaunchKit.Base.Services;
+using Xarial.Signal2Go.Base.Services;
 using System.Drawing;
+using Xarial.Signal2Go.Services.Attributes;
 
-namespace Xarial.AppLaunchKit.Services.About
+namespace Xarial.Signal2Go.Services.About
 {
     public class AboutApplicationService : BaseService<AboutAttribute>, IAboutApplicationService
     {

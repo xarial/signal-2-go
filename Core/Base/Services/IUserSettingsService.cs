@@ -5,7 +5,7 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
-namespace Xarial.AppLaunchKit.Base.Services
+namespace Xarial.Signal2Go.Base.Services
 {
     public interface IUserSettingsService : IService
     {

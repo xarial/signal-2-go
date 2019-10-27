@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 
-namespace Xarial.Signal2Go.Services.UserSettings.Data
+namespace Xarial.Signal2Go.Services.UserSettings
 {
     public class ReadSettingsJsonConverter : SettingsJsonConverter
     {

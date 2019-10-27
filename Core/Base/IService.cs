@@ -7,16 +7,16 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Components;
+using Xarial.Signal2Go.Components;
 
-namespace Xarial.AppLaunchKit.Base
+namespace Xarial.Signal2Go.Base
 {
     [Browsable(false)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IService
     {
         void Init(AppInfo appInfo, ServiceBindingAttribute bindingAtt);
-        Task Start();
+        Task StartAsync();
     }
 
     public interface IService<TSrvBindingAtt> : IService

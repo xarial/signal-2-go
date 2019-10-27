@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xarial.AppLaunchKit.Services.Logger;
+using Xarial.Signal2Go.Services.Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Services.Attributes;
+using Xarial.Signal2Go.Services.Attributes;
 using System.Diagnostics;
 
-namespace Xarial.AppLaunchKit.Services.Log.Tests
+namespace Xarial.Signal2Go.Services.Log.Tests
 {
     [TestClass]
     public class SystemEventLogServiceTests

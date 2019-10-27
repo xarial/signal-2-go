@@ -7,7 +7,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System;
 
-namespace Xarial.AppLaunchKit.Services.Updates.Exceptions
+namespace Xarial.Signal2Go.Services.Updates.Exceptions
 {
     public class CheckForUpdatesDataException : Exception
     {

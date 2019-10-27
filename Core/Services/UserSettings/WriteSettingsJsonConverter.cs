@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace Xarial.Signal2Go.Services.UserSettings.Data
+namespace Xarial.Signal2Go.Services.UserSettings
 {
     public class WriteSettingsJsonConverter : SettingsJsonConverter
     {

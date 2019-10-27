@@ -5,7 +5,7 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
-namespace Xarial.AppLaunchKit.Exceptions
+namespace Xarial.Signal2Go.Exceptions
 {
     public class ServiceNotRegisteredException : ServiceLocatorException
     {

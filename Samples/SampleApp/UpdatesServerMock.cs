@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using Xarial.AppLaunchKit.Services.Updates;
+using Xarial.Signal2Go.Services.Updates;
 
 namespace SampleApp
 {

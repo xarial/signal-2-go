@@ -8,9 +8,9 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using System;
 using System.Drawing;
 using System.Reflection;
-using Xarial.AppLaunchKit.Components;
+using Xarial.Signal2Go.Components;
 
-namespace Xarial.AppLaunchKit.Base
+namespace Xarial.Signal2Go.Base
 {
     public class AppInfo
     {

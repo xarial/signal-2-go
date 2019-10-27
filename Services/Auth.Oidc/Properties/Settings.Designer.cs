@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Xarial.AppLaunchKit.Services.Auth.Oidc.Properties {
+namespace Xarial.Signal2Go.Services.Auth.Oidc.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

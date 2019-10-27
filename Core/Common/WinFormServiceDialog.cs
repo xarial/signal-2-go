@@ -8,9 +8,9 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Xarial.AppLaunchKit.Base;
+using Xarial.Signal2Go.Base;
 
-namespace Xarial.AppLaunchKit.Common
+namespace Xarial.Signal2Go.Common
 {
     internal static class WinApi
     {

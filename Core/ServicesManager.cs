@@ -8,28 +8,26 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using System;
 using System.Drawing;
 using System.IO;
-using Xarial.AppLaunchKit.Attributes;
-using Xarial.AppLaunchKit.Properties;
-using Xarial.AppLaunchKit.Base;
-using Xarial.AppLaunchKit.Components;
-using Xarial.AppLaunchKit.Services.Eula;
-using Xarial.AppLaunchKit.Services.Updates;
+using Xarial.Signal2Go.Attributes;
+using Xarial.Signal2Go.Properties;
+using Xarial.Signal2Go.Base;
+using Xarial.Signal2Go.Components;
+using Xarial.Signal2Go.Services.Eula;
+using Xarial.Signal2Go.Services.Updates;
 using System.Threading.Tasks;
-using System.Threading;
-using Xarial.AppLaunchKit.Services.Logger;
+using Xarial.Signal2Go.Services.Logger;
 using System.Reflection;
+using System.Linq;
+using Xarial.Signal2Go.Services.About;
+using Xarial.Signal2Go.Services.ExternalProcess;
+using Xarial.Signal2Go.Services.UserSettings;
 
-namespace Xarial.AppLaunchKit
+namespace Xarial.Signal2Go
 {
     public delegate bool ErrorHandlerDelegate(Exception ex);
 
     public class ServicesManager
     {
-        public event Action ServicesLaunchCompleted;
-        public event Action ServicesLaunchTerminated;
-
-        public event ErrorHandlerDelegate HandleError;
-
         private readonly AppInfo m_AppInfo;
 
         private readonly ServiceLocator m_ServiceLocator;
@@ -44,7 +42,10 @@ namespace Xarial.AppLaunchKit
             : this(assm, parentWnd,
                   typeof(EulaService),
                   typeof(UpdatesService),
-                  typeof(SystemEventLogService))
+                  typeof(SystemEventLogService),
+                  typeof(AboutApplicationService),
+                  typeof(ExternalProcessService),
+                  typeof(UserSettingsService))
         {
         }
 
@@ -81,58 +82,19 @@ namespace Xarial.AppLaunchKit
             m_ServiceLocator = new ServiceLocator(m_AppInfo, servicesTypes);
         }
 
-        [Obsolete]
-        public void StartServices()
+        public Task StartServicesAsync()
         {
-            if (SynchronizationContext.Current == null)
-            {
-                SynchronizationContext.SetSynchronizationContext(
-                    new System.Windows.Forms.WindowsFormsSynchronizationContext());
-            }
-
-            var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-
-            Task.Factory.StartNew(
-                () => StartServicesAsync(), new CancellationToken(),
-                TaskCreationOptions.None, scheduler);
-        }
-
-        public void StartServicesInBackground()
-        {
-            var syncContext = SynchronizationContext.Current;
-
-            if (syncContext == null)
-            {
-                syncContext = new System.Windows.Forms.WindowsFormsSynchronizationContext();
-            }
-
-            Task.Run(() =>
-            {
-                SynchronizationContext.SetSynchronizationContext(
-                        syncContext);
-                StartServicesAsync().Wait();
-            });
-        }
-
-        public async Task StartServicesAsync()
-        {
-            foreach (var srv in m_ServiceLocator.GetServices())
-            {
-                try
+            var allSrvTasks = Task.WhenAll(m_ServiceLocator.GetServices()
+                .Select(s =>
                 {
-                    await srv.Start();
-                }
-                catch (Exception ex)
-                {
-                    if (HandleError?.Invoke(ex) == false)
-                    {
-                        ServicesLaunchTerminated?.Invoke();
-                        return;
-                    }
-                }
-            }
+                    var srvTask = s.StartAsync();
+                    srvTask.ConfigureAwait(false);
+                    return srvTask;
+                }));
 
-            ServicesLaunchCompleted?.Invoke();
+            allSrvTasks.ConfigureAwait(false);
+
+            return allSrvTasks;
         }
     }
 }

@@ -9,10 +9,10 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base;
-using Xarial.AppLaunchKit.Components;
+using Xarial.Signal2Go.Base;
+using Xarial.Signal2Go.Components;
 
-namespace Xarial.AppLaunchKit.Common
+namespace Xarial.Signal2Go.Common
 {
     public abstract class BaseService<TSrvBindingAtt> : IService<TSrvBindingAtt>
         where TSrvBindingAtt : ServiceBindingAttribute
@@ -21,7 +21,7 @@ namespace Xarial.AppLaunchKit.Common
 
         public void Init(AppInfo appInfo, ServiceBindingAttribute bindingAtt)
         {
-            Init(appInfo, bindingAtt as TSrvBindingAtt);
+            Init(appInfo, (TSrvBindingAtt)bindingAtt);
         }
 
         public void Init(AppInfo appInfo, TSrvBindingAtt bindingAtt)
@@ -30,7 +30,7 @@ namespace Xarial.AppLaunchKit.Common
             Init(m_AppInfo.Assembly, m_AppInfo.WorkDir, bindingAtt);
         }
 
-        public virtual Task Start()
+        public virtual Task StartAsync()
         {
             return Task.CompletedTask;
         }
@@ -39,7 +39,8 @@ namespace Xarial.AppLaunchKit.Common
         {
         }
 
-        protected async Task RunAsyncInCurrentSynchronizationContext(Action action)
+        //TODO: might need to remove this method later
+        protected Task RunAsyncInCurrentSynchronizationContext(Action action)
         {
             if (SynchronizationContext.Current == null)
             {
@@ -49,7 +50,7 @@ namespace Xarial.AppLaunchKit.Common
 
             var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-            await Task.Factory.StartNew(
+            return Task.Factory.StartNew(
                 () => action(), new CancellationToken(),
                 TaskCreationOptions.None, scheduler);
         }

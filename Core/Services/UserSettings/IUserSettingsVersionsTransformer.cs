@@ -10,7 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Xarial.Signal2Go.Services.UserSettings.Data
+namespace Xarial.Signal2Go.Services.UserSettings
 {
     public interface IUserSettingsVersionsTransformer : IEnumerable<VersionTransform>
     {

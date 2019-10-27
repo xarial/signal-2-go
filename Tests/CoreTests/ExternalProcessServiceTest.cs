@@ -1,14 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.External;
-using Xarial.AppLaunchKit.Services.ExternalProcess.Exceptions;
+using Xarial.Signal2Go.Services.ExternalProcess.Exceptions;
 
 namespace CoreTests
 {

@@ -14,7 +14,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Xarial.AppLaunchKit.Services.About.UI
+namespace Xarial.Signal2Go.Services.About.UI
 {
     partial class AboutForm : Form
     {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Xarial.AppLaunchKit.Services.Auth.Oidc.Data
+namespace Xarial.Signal2Go.Services.Auth.Oidc.Data
 {
     [DataContract]
     public class AuthData

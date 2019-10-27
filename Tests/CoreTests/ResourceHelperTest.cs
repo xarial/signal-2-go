@@ -1,7 +1,7 @@
 ﻿using CoreTests.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using Xarial.AppLaunchKit.Reflection;
+using Xarial.Signal2Go.Reflection;
 
 namespace CoreTests
 {

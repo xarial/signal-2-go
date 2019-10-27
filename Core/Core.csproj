@@ -7,7 +7,7 @@
     <ProjectGuid>{AA4345F8-2FC8-4B74-84F7-986E8B83B752}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xarial.AppLaunchKit</RootNamespace>
+    <RootNamespace>Xarial.Signal2Go</RootNamespace>
     <AssemblyName>Xarial.Signal2Go</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -52,6 +52,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -107,11 +110,12 @@
     <Compile Include="Services\About\UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Services\Attributes\AboutAttribute.cs" />
-    <Compile Include="Services\Attributes\EulaAttribute.cs" />
-    <Compile Include="Services\Attributes\ExternalProcessAttribute.cs" />
-    <Compile Include="Services\Attributes\LogAttribute.cs" />
-    <Compile Include="Services\Attributes\UpdatesUrlAttribute.cs" />
+    <Compile Include="Attributes\Services\AboutAttribute.cs" />
+    <Compile Include="Attributes\Services\EulaAttribute.cs" />
+    <Compile Include="Attributes\Services\ExternalProcessAttribute.cs" />
+    <Compile Include="Attributes\Services\LogAttribute.cs" />
+    <Compile Include="Attributes\Services\UpdatesUrlAttribute.cs" />
+    <Compile Include="Attributes\Services\UserSettingsAttribute.cs" />
     <Compile Include="Services\Eula\EulaAgreementData.cs" />
     <Compile Include="Services\Eula\EulaService.cs" />
     <Compile Include="Services\Eula\Exceptions\EulaContentException.cs" />
@@ -137,9 +141,19 @@
       <DependentUpon>UpgradeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\Updates\UpdatesService.cs" />
+    <Compile Include="Services\UserSettings\Exceptions\InvalidSettingsException.cs" />
+    <Compile Include="Services\UserSettings\IUserSettingsVersionsTransformer.cs" />
+    <Compile Include="Services\UserSettings\ReadSettingsJsonConverter.cs" />
+    <Compile Include="Services\UserSettings\SettingsJsonConverter.cs.cs" />
+    <Compile Include="Services\UserSettings\Exceptions\StoringSettingsFailureException.cs" />
+    <Compile Include="Services\UserSettings\Attributes\UserSettingVersionAttribute.cs" />
+    <Compile Include="Services\UserSettings\UserSettingsService.cs" />
+    <Compile Include="Services\UserSettings\VersionTransform.cs" />
+    <Compile Include="Services\UserSettings\WriteSettingsJsonConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

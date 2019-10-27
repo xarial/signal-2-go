@@ -7,7 +7,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System;
 
-namespace Xarial.AppLaunchKit.Services.Logger.Exceptions
+namespace Xarial.Signal2Go.Services.Logger.Exceptions
 {
     public class LogException : Exception
     {

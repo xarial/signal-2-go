@@ -9,10 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Xarial.AppLaunchKit.Base;
-using Xarial.AppLaunchKit.Exceptions;
+using Xarial.Signal2Go.Base;
+using Xarial.Signal2Go.Exceptions;
 
-namespace Xarial.AppLaunchKit.Components
+namespace Xarial.Signal2Go.Components
 {
     internal class ServiceLocator
     {

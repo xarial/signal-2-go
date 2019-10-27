@@ -6,9 +6,9 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using System;
-using Xarial.AppLaunchKit.Base;
+using Xarial.Signal2Go.Base;
 
-namespace Xarial.AppLaunchKit.Exceptions
+namespace Xarial.Signal2Go.Exceptions
 {
     public class InvalidServiceException : ServiceLocatorException
     {

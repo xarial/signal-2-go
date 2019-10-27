@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Xarial.AppLaunchKit.Services.Auth.Oidc.UI
+namespace Xarial.Signal2Go.Services.Auth.Oidc.UI
 {
     public partial class LoginForm : Form
     {

@@ -5,7 +5,7 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
-namespace Xarial.AppLaunchKit.Services.Auth.Oidc.UI
+namespace Xarial.Signal2Go.Services.Auth.Oidc.UI
 {
     public class LoginData
     {

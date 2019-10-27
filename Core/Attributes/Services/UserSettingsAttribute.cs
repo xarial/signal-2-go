@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using Xarial.Signal2Go.Components;
 using Xarial.Signal2Go.Reflection;
-using Xarial.Signal2Go.Services.UserSettings.Data;
+using Xarial.Signal2Go.Services.UserSettings;
 
 namespace Xarial.Signal2Go.Services.Attributes
 {

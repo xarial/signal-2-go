@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Components;
-using Xarial.AppLaunchKit.Reflection;
+using Xarial.Signal2Go.Components;
+using Xarial.Signal2Go.Reflection;
 
-namespace Xarial.AppLaunchKit.Services.Attributes
+namespace Xarial.Signal2Go.Services.Attributes
 {
     public class ExternalProcessAttribute : ServiceBindingAttribute
     {

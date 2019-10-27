@@ -8,7 +8,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using System;
 using System.Windows.Forms;
 
-namespace Xarial.AppLaunchKit.Components
+namespace Xarial.Signal2Go.Components
 {
     internal class WindowWrapper : IWin32Window
     {

@@ -3,8 +3,8 @@ using SampleApp.Properties;
 using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using Xarial.AppLaunchKit.Attributes;
-using Xarial.AppLaunchKit.Services.Attributes;
+using Xarial.Signal2Go.Attributes;
+using Xarial.Signal2Go.Services.Attributes;
 
 [assembly: AssemblyTitle("SampleApp")]
 [assembly: AssemblyDescription("Sample application demonstrating the use of Signal2Go services")]

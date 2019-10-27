@@ -8,7 +8,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace Xarial.Signal2Go.Services.UserSettings.Data
+namespace Xarial.Signal2Go.Services.UserSettings
 {
     public class VersionTransform
     {

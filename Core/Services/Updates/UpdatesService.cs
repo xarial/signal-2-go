@@ -5,46 +5,30 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Security.Authentication;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base.Services;
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Helpers;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.Updates.Exceptions;
-using Xarial.AppLaunchKit.Services.Updates.UI;
+using Xarial.Signal2Go.Base.Services;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Helpers;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.Updates.Exceptions;
+using Xarial.Signal2Go.Services.Updates.UI;
 
-namespace Xarial.AppLaunchKit.Services.Updates
+namespace Xarial.Signal2Go.Services.Updates
 {
     public class UpdatesService : BaseService<UpdatesUrlAttribute>, IUpdatesService
     {
         public event UpdateAvailableDelegate UpdateAvailable;
         public event Action UpdatesCheckCompleted;
         public event Action UpdatesCheckFailed;
-        
-        private string m_ServerUrl;
 
-        private Version m_Version;
-        
-        internal string ServerUrl
-        {
-            get
-            {
-                return m_ServerUrl;
-            }
-        }
-
-        internal Version Version
-        {
-            get
-            {
-                return m_Version;
-            }
-        }
+        internal string ServerUrl { get; private set; }
+        internal Version Version { get; private set; }
 
         public UpdatesService()
         {
@@ -73,7 +57,7 @@ namespace Xarial.AppLaunchKit.Services.Updates
 
             using (var webClient = new WebClient())
             {
-                var data = webClient.DownloadData(m_ServerUrl);
+                var data = webClient.DownloadData(ServerUrl);
 
                 res = GetUpdateInfoIfAvailable(data);
 
@@ -129,22 +113,25 @@ namespace Xarial.AppLaunchKit.Services.Updates
         {
             using (var stream = new MemoryStream(data))
             {
-                var latestVersInfo = JsonSerializer.Deserialize<LatestVersionInfo>(stream);
-                var latestVer = new Version(latestVersInfo.Version);
+                using (var streamReader = new StreamReader(stream))
+                {
+                    var latestVersInfo = (LatestVersionInfo)new JsonSerializer().Deserialize(streamReader, typeof(LatestVersionInfo));
+                    var latestVer = new Version(latestVersInfo.Version);
 
-                if (m_Version < latestVer)
-                {
-                    return new Tuple<Version, string, string>(latestVer, latestVersInfo.WhatsNewUrl,
-                        latestVersInfo.UpgradeUrl);
-                }
-                else
-                {
-                    return null;
+                    if (Version < latestVer)
+                    {
+                        return new Tuple<Version, string, string>(latestVer, latestVersInfo.WhatsNewUrl,
+                            latestVersInfo.UpgradeUrl);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
         
-        public override async Task Start()
+        public override async Task StartAsync()
         {
             await CheckForUpdatesAsync();
         }
@@ -156,17 +143,17 @@ namespace Xarial.AppLaunchKit.Services.Updates
                 throw new ArgumentNullException(nameof(bindingAtt));
             }
             
-            m_ServerUrl = bindingAtt.Url;
+            ServerUrl = bindingAtt.Url;
 
-            if (string.IsNullOrEmpty(m_ServerUrl)
-                || !Uri.IsWellFormedUriString(m_ServerUrl, UriKind.Absolute))
+            if (string.IsNullOrEmpty(ServerUrl)
+                || !Uri.IsWellFormedUriString(ServerUrl, UriKind.Absolute))
             {
                 throw new CheckForUpdatesDataException("Specified updates server url is not of correct format");
             }
 
-            m_Version = assm.GetName().Version;
+            Version = assm.GetName().Version;
 
-            if (m_Version == new Version(0, 0, 0, 0))
+            if (Version == new Version(0, 0, 0, 0))
             {
                 throw new CheckForUpdatesDataException(
                     $"Assembly {assm.FullName} must be decorated with {typeof(AssemblyVersionAttribute).FullName} attribute");

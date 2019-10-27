@@ -6,21 +6,21 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
 using System;
-using Xarial.AppLaunchKit.Components;
-using Xarial.AppLaunchKit.Reflection;
+using Xarial.Signal2Go.Components;
+using Xarial.Signal2Go.Reflection;
 
-namespace Xarial.AppLaunchKit.Services.Attributes
+namespace Xarial.Signal2Go.Services.Attributes
 {
-    public class UpdatesUrlAttribute : ServiceBindingAttribute
+    public class EulaAttribute : ServiceBindingAttribute
     {
-        public string Url { get; private set; }
+        public string RtfContent { get; private set; }
 
-        public UpdatesUrlAttribute(string url)
+        public EulaAttribute(string rtfContent)
         {
-            Url = url;
+            RtfContent = rtfContent;
         }
 
-        public UpdatesUrlAttribute(Type resourceType, string resourceName)
+        public EulaAttribute(Type resourceType, string resourceName)
             : this(ResourceHelper.GetResource<string>(resourceType, resourceName))
         {
         }

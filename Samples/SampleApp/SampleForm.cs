@@ -10,20 +10,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Xarial.AppLaunchKit;
-using Xarial.AppLaunchKit.Attributes;
-using Xarial.AppLaunchKit.Base.Services;
-using Xarial.AppLaunchKit.Services.About;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.Auth.Oidc;
-using Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions;
-using Xarial.AppLaunchKit.Services.Eula;
-using Xarial.AppLaunchKit.Services.Eula.Exceptions;
-using Xarial.AppLaunchKit.Services.External;
-using Xarial.AppLaunchKit.Services.Logger;
-using Xarial.AppLaunchKit.Services.Updates;
-using Xarial.AppLaunchKit.Services.Updates.Exceptions;
-using Xarial.AppLaunchKit.Services.UserSettings;
+using Xarial.Signal2Go;
+using Xarial.Signal2Go.Attributes;
+using Xarial.Signal2Go.Base.Services;
+using Xarial.Signal2Go.Services.About;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.Auth.Oidc;
+using Xarial.Signal2Go.Services.Auth.Oidc.Exceptions;
+using Xarial.Signal2Go.Services.Eula;
+using Xarial.Signal2Go.Services.Eula.Exceptions;
+using Xarial.Signal2Go.Services.External;
+using Xarial.Signal2Go.Services.Logger;
+using Xarial.Signal2Go.Services.Updates;
+using Xarial.Signal2Go.Services.Updates.Exceptions;
+using Xarial.Signal2Go.Services.UserSettings;
 
 namespace SampleApp
 {   

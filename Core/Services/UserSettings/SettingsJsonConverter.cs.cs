@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using System;
 using Xarial.Signal2Go.Services.UserSettings.Attributes;
 
-namespace Xarial.Signal2Go.Services.UserSettings.Data
+namespace Xarial.Signal2Go.Services.UserSettings
 {
     public abstract class SettingsJsonConverter : JsonConverter
     {

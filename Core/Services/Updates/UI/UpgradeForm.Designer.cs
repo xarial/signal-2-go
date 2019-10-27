@@ -1,4 +1,4 @@
-﻿namespace Xarial.AppLaunchKit.Services.Updates.UI
+﻿namespace Xarial.Signal2Go.Services.Updates.UI
 {
     partial class UpgradeForm
     {

@@ -7,16 +7,16 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System;
 using System.Drawing;
-using Xarial.AppLaunchKit.Reflection;
+using Xarial.Signal2Go.Reflection;
 
-namespace Xarial.AppLaunchKit.Attributes
+namespace Xarial.Signal2Go.Attributes
 {
     [AttributeUsage(AttributeTargets.Assembly)]
     public class ApplicationInfoAttribute : Attribute
     {
-        public string WorkingDirectory { get; private set; }
-        public string Title { get; private set; }
-        public Icon Icon { get; private set; }
+        public string WorkingDirectory { get; }
+        public string Title { get; }
+        public Icon Icon { get; }
 
         public ApplicationInfoAttribute(string workDir, string appTitle, string iconPath)
             : this(workDir, appTitle, Icon.ExtractAssociatedIcon(iconPath))

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xarial.AppLaunchKit.Base.Services
+namespace Xarial.Signal2Go.Base.Services
 {
     public interface IExternalProcessService
     {

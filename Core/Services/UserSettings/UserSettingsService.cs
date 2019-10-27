@@ -13,7 +13,6 @@ using System.Reflection;
 using Xarial.Signal2Go.Base.Services;
 using Xarial.Signal2Go.Common;
 using Xarial.Signal2Go.Services.Attributes;
-using Xarial.Signal2Go.Services.UserSettings.Data;
 using Xarial.Signal2Go.Services.UserSettings.Exceptions;
 
 namespace Xarial.Signal2Go.Services.UserSettings

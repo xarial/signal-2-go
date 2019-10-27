@@ -13,12 +13,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base.Services;
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.ExternalProcess.Exceptions;
+using Xarial.Signal2Go.Base.Services;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.ExternalProcess.Exceptions;
 
-namespace Xarial.AppLaunchKit.Services.External
+namespace Xarial.Signal2Go.Services.ExternalProcess
 {
     public class ExternalProcessService : BaseService<ExternalProcessAttribute>, IExternalProcessService
     {
@@ -40,9 +40,10 @@ namespace Xarial.AppLaunchKit.Services.External
             m_Arg = bindingAtt.Args;
         }
 
-        public override Task Start()
+        public override Task StartAsync()
         {
-            return RunAsyncInCurrentSynchronizationContext(StartApplication);
+            StartApplication();
+            return Task.CompletedTask;
         }
 
         public void StartApplication()

@@ -7,7 +7,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System;
 
-namespace Xarial.AppLaunchKit.Services.Auth.Oidc.Exceptions
+namespace Xarial.Signal2Go.Services.Auth.Oidc.Exceptions
 {
     public class LoginFailedException : Exception
     {

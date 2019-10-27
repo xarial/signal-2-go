@@ -7,7 +7,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 
 using System.Runtime.Serialization;
 
-namespace Xarial.AppLaunchKit.Services.Updates
+namespace Xarial.Signal2Go.Services.Updates
 {
     [DataContract]
     public class LatestVersionInfo

@@ -1,4 +1,4 @@
-﻿namespace Xarial.AppLaunchKit.Services.Auth.Oidc.UI
+﻿namespace Xarial.Signal2Go.Services.Auth.Oidc.UI
 {
     partial class LoginForm
     {

@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
-using Xarial.AppLaunchKit.Helpers;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.Eula;
-using Xarial.AppLaunchKit.Services.Eula.Exceptions;
+using Xarial.Signal2Go.Helpers;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.Eula;
+using Xarial.Signal2Go.Services.Eula.Exceptions;
 
 namespace CoreTests
 {

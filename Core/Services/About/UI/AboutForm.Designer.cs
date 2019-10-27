@@ -1,4 +1,4 @@
-﻿namespace Xarial.AppLaunchKit.Services.About.UI
+﻿namespace Xarial.Signal2Go.Services.About.UI
 {
     partial class AboutForm
     {

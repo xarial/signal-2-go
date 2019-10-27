@@ -6,10 +6,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base;
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Components;
-using Xarial.AppLaunchKit.Exceptions;
+using Xarial.Signal2Go.Base;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Components;
+using Xarial.Signal2Go.Exceptions;
 
 namespace CoreTests
 {
@@ -49,7 +49,7 @@ namespace CoreTests
 
         public class ServiceMock : BaseService<SrvAtt1>, IServiceMock<SrvAtt1>
         {
-            public override Task Start()
+            public override Task StartAsync()
             {
                 throw new NotImplementedException();
             }

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Xarial.AppLaunchKit.Services.Eula.UI
+namespace Xarial.Signal2Go.Services.Eula.UI
 {
     public partial class EulaForm : Form
     {

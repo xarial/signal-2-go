@@ -8,7 +8,7 @@ License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 using System;
 using System.Runtime.Serialization;
 
-namespace Xarial.AppLaunchKit.Services.Eula
+namespace Xarial.Signal2Go.Services.Eula
 {
     [DataContract]
     public class EulaAgreementData

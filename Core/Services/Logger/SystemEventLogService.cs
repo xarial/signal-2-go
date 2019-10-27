@@ -9,12 +9,12 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
-using Xarial.AppLaunchKit.Base.Services;
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.Logger.Exceptions;
+using Xarial.Signal2Go.Base.Services;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.Logger.Exceptions;
 
-namespace Xarial.AppLaunchKit.Services.Logger
+namespace Xarial.Signal2Go.Services.Logger
 {
     public class SystemEventLogService : BaseService<LogAttribute>, ILogService
     {

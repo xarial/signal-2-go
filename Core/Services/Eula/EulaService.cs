@@ -5,44 +5,31 @@ Product URL: https://www.xarial.net/products/developers/signal-2-go
 License: https://github.com/xarial/signal-2-go/blob/master/LICENSE
 *********************************************************************/
 
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Base.Services;
-using Xarial.AppLaunchKit.Common;
-using Xarial.AppLaunchKit.Helpers;
-using Xarial.AppLaunchKit.Properties;
-using Xarial.AppLaunchKit.Services.Attributes;
-using Xarial.AppLaunchKit.Services.Eula.Exceptions;
-using Xarial.AppLaunchKit.Services.Eula.UI;
+using Xarial.Signal2Go.Base.Services;
+using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Helpers;
+using Xarial.Signal2Go.Properties;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.Eula;
+using Xarial.Signal2Go.Services.Eula.Exceptions;
+using Xarial.Signal2Go.Services.Eula.UI;
 
-namespace Xarial.AppLaunchKit.Services.Eula
+namespace Xarial.Signal2Go.Services.Eula
 {
     public class EulaService : BaseService<EulaAttribute>, IEulaService
     {
         public event Action EulaSigned;
         public event Action EulaRejected;
         public event Action EulaSkipped;
-        
-        private string m_EulaContent;
-        private string m_EulaFile;
 
-        internal string EulaContent
-        {
-            get
-            {
-                return m_EulaContent;
-            }
-        }
+        internal string EulaContent { get; private set; }
 
-        internal string EulaFile
-        {
-            get
-            {
-                return m_EulaFile;
-            }
-        }
+        internal string EulaFile { get; private set; }
 
         public EulaService()
         {
@@ -55,20 +42,21 @@ namespace Xarial.AppLaunchKit.Services.Eula
 
         public bool ValidateEulaSigned(out string eulaContent)
         {
-            eulaContent = m_EulaContent;
+            eulaContent = EulaContent;
 
-            return IsEulaSigned(m_EulaFile);
+            return IsEulaSigned(EulaFile);
         }
 
         public void SaveEulaConfirmation()
         {
             try
             {
-                JsonSerializer.SerializeToFile(new EulaAgreementData()
-                {
-                    IsAgreed = true,
-                    TimeStamp = DateTime.Now
-                }, m_EulaFile);
+                File.WriteAllText(EulaFile,
+                    JsonConvert.SerializeObject(new EulaAgreementData()
+                    {
+                        IsAgreed = true,
+                        TimeStamp = DateTime.Now
+                    }));
             }
             catch
             {
@@ -81,7 +69,7 @@ namespace Xarial.AppLaunchKit.Services.Eula
             {
                 if (File.Exists(eulaFilePath))
                 {
-                    var eulaData = JsonSerializer.DeserializeFromFile<EulaAgreementData>(eulaFilePath);
+                    var eulaData = JsonConvert.DeserializeObject<EulaAgreementData>(File.ReadAllText(eulaFilePath));
 
                     if (eulaData != null)
                     {
@@ -103,17 +91,17 @@ namespace Xarial.AppLaunchKit.Services.Eula
                 throw new ArgumentNullException(nameof(bindingAtt));
             }
 
-            m_EulaContent = bindingAtt.RtfContent;
+            EulaContent = bindingAtt.RtfContent;
 
-            if (string.IsNullOrEmpty(m_EulaContent))
+            if (string.IsNullOrEmpty(EulaContent))
             {
                 throw new EulaContentException("Eula content is empty");
             }
 
-            m_EulaFile = Path.Combine(workDir, Settings.Default.EulaAgreementFileName);
+            EulaFile = Path.Combine(workDir, Settings.Default.EulaAgreementFileName);
         }
 
-        public override async Task Start()
+        public override async Task StartAsync()
         {
             await RunAsyncInCurrentSynchronizationContext(CheckEula);
         }

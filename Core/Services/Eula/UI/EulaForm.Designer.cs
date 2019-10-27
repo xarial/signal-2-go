@@ -1,4 +1,4 @@
-﻿namespace Xarial.AppLaunchKit.Services.Eula.UI
+﻿namespace Xarial.Signal2Go.Services.Eula.UI
 {
     partial class EulaForm
     {

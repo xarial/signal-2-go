@@ -1,20 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xarial.AppLaunchKit.Services.UserSettings;
+using Xarial.Signal2Go.Services.UserSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xarial.AppLaunchKit.Services.Attributes;
+using Xarial.Signal2Go.Services.Attributes;
 using CoreTests;
 using System.IO;
-using Xarial.AppLaunchKit.Services.UserSettings.Attributes;
+using Xarial.Signal2Go.Services.UserSettings.Attributes;
 using CoreTests.Properties;
-using Xarial.AppLaunchKit.Services.UserSettings.Data;
+using Xarial.Signal2Go.Services.UserSettings.Data;
 using System.Collections;
 using Newtonsoft.Json.Linq;
 
-namespace Xarial.AppLaunchKit.Services.UserSettings.Tests
+namespace Xarial.Signal2Go.Services.UserSettings.Tests
 {
     [TestClass]
     public class UserSettingsServiceTests
