@@ -51,12 +51,11 @@ namespace Xarial.Signal2Go.Services.Eula
         {
             try
             {
-                File.WriteAllText(EulaFile,
-                    JsonConvert.SerializeObject(new EulaAgreementData()
-                    {
-                        IsAgreed = true,
-                        TimeStamp = DateTime.Now
-                    }));
+                JsonFileSerializer.SerializeToFile(new EulaAgreementData()
+                {
+                    IsAgreed = true,
+                    TimeStamp = DateTime.Now
+                }, EulaFile);
             }
             catch
             {
@@ -101,9 +100,9 @@ namespace Xarial.Signal2Go.Services.Eula
             EulaFile = Path.Combine(workDir, Settings.Default.EulaAgreementFileName);
         }
 
-        public override async Task StartAsync()
+        public override Task StartAsync()
         {
-            await RunAsyncInCurrentSynchronizationContext(CheckEula);
+            return Task.Run(() => CheckEula());
         }
 
         private void CheckEula()

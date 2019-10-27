@@ -15,11 +15,8 @@ using Xarial.Signal2Go.Attributes;
 using Xarial.Signal2Go.Base.Services;
 using Xarial.Signal2Go.Services.About;
 using Xarial.Signal2Go.Services.Attributes;
-using Xarial.Signal2Go.Services.Auth.Oidc;
-using Xarial.Signal2Go.Services.Auth.Oidc.Exceptions;
 using Xarial.Signal2Go.Services.Eula;
 using Xarial.Signal2Go.Services.Eula.Exceptions;
-using Xarial.Signal2Go.Services.External;
 using Xarial.Signal2Go.Services.Logger;
 using Xarial.Signal2Go.Services.Updates;
 using Xarial.Signal2Go.Services.Updates.Exceptions;
@@ -40,32 +37,44 @@ namespace SampleApp
                 this.CreateHandle();
             }
 
-            m_Kit = new ServicesManager(this.GetType().Assembly, this.Handle,
-                typeof(EulaService),
-                typeof(UpdatesService),
-                typeof(OpenIdConnectorService),
-                typeof(UserSettingsService),
-                typeof(SystemEventLogService),
-                typeof(AboutApplicationService),
-                typeof(ExternalProcessService));
+            m_Kit = new ServicesManager(this.GetType().Assembly, this.Handle);
 
-            m_Kit.ServicesLaunchCompleted += OnServicesLaunchCompleted;
-            m_Kit.ServicesLaunchTerminated += OnServicesLaunchTerminated;
-            m_Kit.HandleError += OnHandleError;
+            LoadServices();
+        }
 
-            m_Kit.GetService<IOpenIdConnectorService>().LoggedIn += OnUserLoggedIn;
-            m_Kit.StartServices();
+        private async void LoadServices()
+        {
+            Task svcTask = null;
+
+            try
+            {
+                svcTask = m_Kit.StartServicesAsync();
+                await svcTask;
+            }
+            catch
+            {
+                foreach (var ex in svcTask.Exception.InnerExceptions)
+                {
+                    if (ex is UpdatesCheckException)
+                    {
+                        MessageBox.Show("Failed to check for updates");
+                    }
+                    else if (ex is EulaNotAgreedException)
+                    {
+                        MessageBox.Show("EULA not signed");
+                    }
+                    else
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
 
             m_Kit.GetService<ILogService>().LogMessage("Starting the application");
 
             var setts = m_Kit.GetService<IUserSettingsService>().ReadSettings<CustomUserSettings>("user");
             lblUserMessage.Text = setts.Message;
             m_Kit.GetService<IUserSettingsService>().StoreSettings(setts, "user");
-        }
-
-        private void OnUserLoggedIn(string identity)
-        {
-            lblUserName.Text = identity;
         }
 
         private void OnServicesLaunchTerminated()
@@ -77,32 +86,7 @@ namespace SampleApp
         {
             m_Kit.GetService<ILogService>().LogMessage("Services launched");
         }
-
-        private bool OnHandleError(Exception ex)
-        {
-            m_Kit.GetService<ILogService>().LogException(ex);
-
-            if (ex is EulaNotAgreedException)
-            {
-                MessageBox.Show("EULA not signed");
-                return false;
-            }
-            else if (ex is UpdatesCheckException)
-            {
-                MessageBox.Show("Failed to check for updates");
-                return true;
-            }
-            else if (ex is LoginFailedException)
-            {
-                MessageBox.Show("Failed to login");
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
         private void OnServerLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             m_Kit.GetService<ILogService>().LogMessage("Server Link Clicked");
@@ -146,7 +130,6 @@ namespace SampleApp
         private void OnAboutLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             m_Kit.GetService<IAboutApplicationService>().ShowAboutForm();
-
         }
     }
 }

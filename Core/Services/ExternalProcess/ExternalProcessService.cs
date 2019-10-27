@@ -26,6 +26,10 @@ namespace Xarial.Signal2Go.Services.ExternalProcess
         private string m_Arg;
         private Assembly m_AppAssm;
 
+        public ExternalProcessService()
+        {
+        }
+
         internal ExternalProcessService(Assembly appAssm, string workDir, ExternalProcessAttribute bindingAtt)
         {
             Init(appAssm, workDir, bindingAtt);
@@ -42,8 +46,7 @@ namespace Xarial.Signal2Go.Services.ExternalProcess
 
         public override Task StartAsync()
         {
-            StartApplication();
-            return Task.CompletedTask;
+            return Task.Run(() => StartApplication());
         }
 
         public void StartApplication()

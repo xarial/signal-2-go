@@ -1,8 +1,8 @@
 ﻿using CoreTests.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System;
 using System.IO;
-using Xarial.Signal2Go.Helpers;
 using Xarial.Signal2Go.Services.Attributes;
 using Xarial.Signal2Go.Services.Eula;
 using Xarial.Signal2Go.Services.Eula.Exceptions;
@@ -81,12 +81,7 @@ namespace CoreTests
             
             Assert.IsTrue(File.Exists(eulaFile));
 
-            EulaAgreementData eula = null;
-
-            using (var file = File.OpenRead(eulaFile))
-            {
-                eula = JsonSerializer.Deserialize<EulaAgreementData>(file);
-            }
+            var eula = JsonConvert.DeserializeObject<EulaAgreementData>(File.ReadAllText(eulaFile));
 
             Assert.IsNotNull(eula);
             Assert.IsTrue(eula.IsAgreed);

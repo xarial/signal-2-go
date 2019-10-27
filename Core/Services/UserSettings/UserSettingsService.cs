@@ -12,6 +12,7 @@ using System.IO;
 using System.Reflection;
 using Xarial.Signal2Go.Base.Services;
 using Xarial.Signal2Go.Common;
+using Xarial.Signal2Go.Helpers;
 using Xarial.Signal2Go.Services.Attributes;
 using Xarial.Signal2Go.Services.UserSettings.Exceptions;
 
@@ -97,7 +98,6 @@ namespace Xarial.Signal2Go.Services.UserSettings
                 }
                 
                 var settsData = JsonConvert.SerializeObject(setts, new WriteSettingsJsonConverter(typeof(T)));
-
                 File.WriteAllText(settsFile, settsData);
             }
             catch(Exception ex)

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Security.Authentication;
 using System.Threading.Tasks;
@@ -30,12 +31,16 @@ namespace Xarial.Signal2Go.Services.Updates
         internal string ServerUrl { get; private set; }
         internal Version Version { get; private set; }
 
+        private readonly HttpMessageHandler m_MsgHandler;
+
         public UpdatesService()
         {
+            m_MsgHandler = new HttpClientHandler();
         }
 
-        internal UpdatesService(Assembly appAssm, UpdatesUrlAttribute bindingAtt)
+        internal UpdatesService(Assembly appAssm, UpdatesUrlAttribute bindingAtt, HttpMessageHandler handler)
         {
+            m_MsgHandler = handler;
             Init(appAssm, "", bindingAtt);
         }
 
@@ -49,49 +54,18 @@ namespace Xarial.Signal2Go.Services.Updates
             ServicePointManager.SecurityProtocol = Tls12;
         }
 
-        internal Tuple<Version, string, string> GetUpdates()
+        internal async Task<Tuple<Version, string, string>> GetUpdatesAsync()
         {
-            Tuple<Version, string, string> res = null;
-
-            SetWebSettings();
-
-            using (var webClient = new WebClient())
-            {
-                var data = webClient.DownloadData(ServerUrl);
-
-                res = GetUpdateInfoIfAvailable(data);
-
-                if (res != null)
-                {
-                    UpdateAvailable?.Invoke(res.Item1, res.Item2, res.Item3);
-
-                    return res;
-                }
-                else
-                {
-                    UpdatesCheckCompleted?.Invoke();
-                }
-            }
-
-            return res;
-        }
-
-        public Tuple<Version, string, string> CheckForUpdates()
-        {
-            Tuple<Version, string, string> updates = null;
-
             try
             {
-                updates = GetUpdates();
 
-                if (updates != null)
+                SetWebSettings();
+
+                using (var webClient = new HttpClient(m_MsgHandler))
                 {
-                    var dlg = CreateDialog<WinFormServiceDialog<UpgradeForm>>(
-                                "Updates for {0}");
+                    var data = await webClient.GetStreamAsync(ServerUrl);
 
-                    dlg.Form.SetData(updates.Item1, updates.Item2, updates.Item3);
-
-                    dlg.Show();
+                    return GetUpdateInfoIfAvailable(data);
                 }
             }
             catch(Exception ex)
@@ -99,41 +73,52 @@ namespace Xarial.Signal2Go.Services.Updates
                 UpdatesCheckFailed?.Invoke();
                 throw new UpdatesCheckException(ex);
             }
+        }
+
+        public async Task<Tuple<Version, string, string>> CheckForUpdatesAsync()
+        {
+            var updates = await GetUpdatesAsync();
+
+            if (updates != null)
+            {
+                var dlg = CreateDialog<WinFormServiceDialog<UpgradeForm>>(
+                            "Updates for {0}");
+
+                dlg.Form.SetData(updates.Item1, updates.Item2, updates.Item3);
+
+                dlg.Show();
+            }
 
             return updates;
         }
 
-        public async Task CheckForUpdatesAsync()
+        private Tuple<Version, string, string> GetUpdateInfoIfAvailable(Stream stream)
         {
-            await RunAsyncInCurrentSynchronizationContext(
-                () => CheckForUpdates());
-        }
-
-        private Tuple<Version, string, string> GetUpdateInfoIfAvailable(byte[] data)
-        {
-            using (var stream = new MemoryStream(data))
+            using (var streamReader = new StreamReader(stream))
             {
-                using (var streamReader = new StreamReader(stream))
-                {
-                    var latestVersInfo = (LatestVersionInfo)new JsonSerializer().Deserialize(streamReader, typeof(LatestVersionInfo));
-                    var latestVer = new Version(latestVersInfo.Version);
+                var latestVersInfo = (LatestVersionInfo)new JsonSerializer().Deserialize(streamReader, typeof(LatestVersionInfo));
+                var latestVer = new Version(latestVersInfo.Version);
 
-                    if (Version < latestVer)
-                    {
-                        return new Tuple<Version, string, string>(latestVer, latestVersInfo.WhatsNewUrl,
-                            latestVersInfo.UpgradeUrl);
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                if (Version < latestVer)
+                {
+                    UpdateAvailable?.Invoke(latestVer, latestVersInfo.WhatsNewUrl, latestVersInfo.UpgradeUrl);
+
+                    return new Tuple<Version, string, string>(latestVer, latestVersInfo.WhatsNewUrl,
+                        latestVersInfo.UpgradeUrl);
+                }
+                else
+                {
+                    UpdatesCheckCompleted?.Invoke();
+                    return null;
                 }
             }
         }
         
-        public override async Task StartAsync()
+        public override Task StartAsync()
         {
-            await CheckForUpdatesAsync();
+            var checkForUpdatesTask = CheckForUpdatesAsync();
+            checkForUpdatesTask.ConfigureAwait(false);
+            return checkForUpdatesTask;
         }
 
         protected override void Init(Assembly assm, string workDir, UpdatesUrlAttribute bindingAtt)

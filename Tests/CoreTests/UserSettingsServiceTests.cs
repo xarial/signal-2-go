@@ -10,7 +10,6 @@ using CoreTests;
 using System.IO;
 using Xarial.Signal2Go.Services.UserSettings.Attributes;
 using CoreTests.Properties;
-using Xarial.Signal2Go.Services.UserSettings.Data;
 using System.Collections;
 using Newtonsoft.Json.Linq;
 

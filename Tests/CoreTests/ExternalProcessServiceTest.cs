@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using System.Threading;
+using Xarial.Signal2Go.Services.Attributes;
+using Xarial.Signal2Go.Services.ExternalProcess;
 using Xarial.Signal2Go.Services.ExternalProcess.Exceptions;
 
 namespace CoreTests

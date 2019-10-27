@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xarial.Signal2Go.Services.UserSettings;
 using Xarial.Signal2Go.Services.UserSettings.Attributes;
-using Xarial.Signal2Go.Services.UserSettings.Data;
 
 namespace SampleApp
 {

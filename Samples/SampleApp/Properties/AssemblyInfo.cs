@@ -22,13 +22,8 @@ using Xarial.Signal2Go.Services.Attributes;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: AuthOidc(typeof(Settings),
-    nameof(Settings.Default) + "." + nameof(Settings.Authority),
-    nameof(Settings.Default) + "." + nameof(Settings.ClientId),
-    nameof(Settings.Default) + "." + nameof(Settings.RedirectUrl),
-    nameof(Settings.Default) + "." + nameof(Settings.ClientSecret),
-    nameof(Settings.Default) + "." + nameof(Settings.Scope),
-    nameof(Settings.Default) + "." + nameof(Settings.LoadProfile))]
+[assembly: ExternalProcess("Aasdsda")]
+
 [assembly: UpdatesUrl(typeof(UpdatesServerMock), nameof(UpdatesServerMock.UpdateUrl))]
 
 [assembly: Eula(typeof(Resources), nameof(Resources.test_eula))]
@@ -39,5 +34,3 @@ using Xarial.Signal2Go.Services.Attributes;
 
 [assembly: ApplicationInfo(typeof(Resources), Environment.SpecialFolder.ApplicationData,
     nameof(Resources.WorkDir), nameof(Resources.AppTitle), nameof(Resources.app_icon))] 
-
-[assembly: ExternalProcess("Aasdsda")]
